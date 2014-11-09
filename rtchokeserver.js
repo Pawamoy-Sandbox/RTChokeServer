@@ -2,6 +2,13 @@ var express = require('express')
 
 var app = express();
 
+// view engine
+// we will be using Handlebars
+var handlebars = require('express3-handlebars')
+        .create({ defaultLayout: 'main'});
+
+app.engine('handlebars', handlebars.engine);
+app.set('view engine', 'handlebars');
 
 // we start to listen to port 3000
 app.set('port', process.env.PORT || 3000);
