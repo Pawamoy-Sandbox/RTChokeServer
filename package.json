@@ -1,0 +1,26 @@
+{
+  "name": "RTChokeServer",
+  "version": "0.0.1",
+  "description": "NodeJS server for RTChoke (backend).",
+  "main": "rtchokeserver.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ProjetPro/RTChokeServer.git"
+  },
+  "author": "Thomas Ersfeld <thomas.ersfeld@gmail.com>",
+  "license": "GPL",
+  "bugs": {
+    "url": "https://github.com/ProjetPro/RTChokeServer/issues"
+  },
+  "homepage": "https://github.com/ProjetPro/RTChokeServer",
+  "dependencies": {
+    "express": "~4.4.2",
+    "express3-handlebars": "~0.5.0",
+  },
+  "devDependencies": {
+    "mocha": "~1.20.1",
+  }
+}
