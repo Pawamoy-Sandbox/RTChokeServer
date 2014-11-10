@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>RTChoke alpha</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="css/bootstrap.css" media="screen">
+    <link rel="stylesheet" href="css/bootswatch.min.css">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="../bower_components/html5shiv/dist/html5shiv.js"></script>
+    <script src="../bower_components/respond/dest/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+<script src="js/bsa.js"></script>
+
+<div class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <a href="../" class="navbar-brand"><span class="primary">RT</span><span class="secondary">Choke</span></a>
+            <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div class="navbar-collapse collapse" id="navbar-main">
+            <ul class="nav navbar-nav">
+                <li>
+                    <a href="index.php">Home</a>
+                </li>
+                <li>
+                    <a href="list.php">My map</a>
+                </li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="download">Account <span
+                            class="caret"></span></a>
+                    <ul class="dropdown-menu" aria-labelledby="download">
+                        <li><a tabindex="-1" href="profil.php">Your profile</a></li>
+                        <li><a tabindex="-1" href="edit.php">Edit settings</a></li>
+                        <li class="divider"></li>
+                        <li><a tabindex="-1" href="register.php">Register</a></li>
+                        <li><a tabindex="-1" href="logout.php">Logout</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="help.php">Need help ?</a>
+                </li>
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <form class="navbar-form navbar-right" method='post' action='login.php'>
+                    <div class="form-group">
+                        <input type="text" placeholder="Username" class="form-control" name='user_name'>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" placeholder="Password" class="form-control" name='password'>
+                    </div>
+                    <button type="submit" class="btn btn-info" name="submit-user">Sign in</button>
+                </form>
+            </ul>
+
+        </div>
+    </div>
+</div>
+
+<div class="container">
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="page-header">
+                <h1 id="container">Your stream</h1>
+            </div>
+            <div class="bs-example">
+                <div class="jumbotron">
+                    <div class="btn-group">
+                        <a href="#" class="btn btn-info">Camera resolution</a>
+                        <a href="#" class="btn btn-info dropdown-toggle" data-toggle="dropdown"><span
+                                class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a id="qvga">320x240</a></li>
+                            <li><a id="vga">640x480</a></li>
+                        </ul>
+                    </div>
+
+                    <video autoplay></video>
+                    <script src="js/getUserMedia.js"></script>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <hr>
+        <p>rtchoke.com 2014</p>
+    </footer>
+</div>
+
+
+<script src="js/jquery-1.9.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/bootswatch.js"></script>
+</body>
+</html>
