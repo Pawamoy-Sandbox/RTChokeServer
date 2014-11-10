@@ -13,7 +13,16 @@ app.set('view engine', 'handlebars');
 // we start to listen to port 3000
 app.set('port', process.env.PORT || 3000);
 
+// using url redirect for static resources (/public)
 app.use(express.static(__dirname + '/public'));
+
+// use only test for dev
+app.use(function(req,res,next){
+    res.locals.showTests = app.get('env') !== 'production'
+        && req.query.test === '1';
+    next();
+});
+
 
 // basic routes for website pages
 app.get('/', function(req, res){
