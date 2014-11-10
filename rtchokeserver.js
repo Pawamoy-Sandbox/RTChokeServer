@@ -26,8 +26,12 @@ app.use(function(req,res,next){
 
 // basic routes for website pages
 app.get('/', function(req, res){
-    res.render('home');
-})
+    res.render('index');
+});
+
+app.get('/viewstream', function(req, res){
+    res.render('viewstream');
+});
 
 
 // we redirect the HTTP requests
