@@ -13,6 +13,8 @@ app.set('view engine', 'handlebars');
 // we start to listen to port 3000
 app.set('port', process.env.PORT || 3000);
 
+app.use(express.static(__dirname + '/public'));
+
 // basic routes for website pages
 app.get('/', function(req, res){
     res.render('home');
