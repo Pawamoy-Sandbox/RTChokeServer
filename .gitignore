@@ -16,3 +16,4 @@ npm-debug.log
 # Directories
 .idea/
 node_modules/
+bin/

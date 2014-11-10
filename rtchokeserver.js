@@ -33,6 +33,10 @@ app.get('/viewstream', function(req, res){
     res.render('viewstream');
 });
 
+app.get('/stream', function(req, res){
+    res.render('stream');
+});
+
 
 // we redirect the HTTP requests
 app.use(function(req, res){
