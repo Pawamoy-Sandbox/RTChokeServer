@@ -1,1 +1,18 @@
-node_modules
+# FILES ----------------------------------------------------------------
+
+# Patterns
+/*.iml
+*.ipr
+*.iws
+*.swp
+
+# Files
+npm-debug.log
+
+# DIRECTORIES ----------------------------------------------------------
+
+# Patterns
+
+# Directories
+.idea/
+node_modules/
