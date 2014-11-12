@@ -13,8 +13,7 @@ module.exports = function(grunt){
             all: { src: 'qa/tests-*.js', options: { ui: 'tdd' }, }
         },
         jshint: {
-            app: ['rtchokeserver.js', 'public/js/**/*.js',
-                'lib/**/*.js'],
+            app: ['rtchokeserver.js', 'lib/**/*.js'],
                 qa: ['Gruntfile.js', 'public/qa/**/*.js', 'qa/**/*.js'],
         },
         exec: {

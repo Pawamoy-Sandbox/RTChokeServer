@@ -18,8 +18,7 @@ app.use(express.static(__dirname + '/public'));
 
 // use only test for dev
 app.use(function(req,res,next){
-    res.locals.showTests = app.get('env') !== 'production'
-        && req.query.test === '1';
+    res.locals.showTests = app.get('env') !== 'production' && req.query.test === '1';
     next();
 });
 

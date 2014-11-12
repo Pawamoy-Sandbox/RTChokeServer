@@ -4,11 +4,11 @@ var expect = require('chai').expect;
 
 
 suite('Stress tests', function(){
-    test('Homepage handling 100 requests', function(done){
+    test('Homepage handling 250 requests', function(done){
         var options = {
             url: 'http://localhost:3000',
             concurrency: 4,
-            maxRequests: 100
+            maxRequests: 250
         };
         loadtest.loadTest(options, function(err,result){
             expect(!err);
