@@ -4,7 +4,7 @@
   "description": "NodeJS server for RTChoke (backend).",
   "main": "rtchokeserver.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "grunt --verbose"
   },
   "repository": {
     "type": "git",
