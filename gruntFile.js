@@ -19,7 +19,6 @@ module.exports = function(grunt){
         },
         exec: {
             linkchecker:
-                3. See the grunt.option documentation to get started.
                 { cmd: 'linkchecker http://localhost:3000' }
         },
     });
