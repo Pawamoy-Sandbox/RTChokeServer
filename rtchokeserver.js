@@ -37,6 +37,9 @@ app.get('/stream', function(req, res){
     res.render('stream');
 });
 
+app.get('/signup', function(req, res){
+    res.render('signup');
+});
 
 // we redirect the HTTP requests
 app.use(function(req, res){
