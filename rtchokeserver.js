@@ -59,12 +59,20 @@ switch (app.get('env')) {
         throw new Error('Unknown environment:' + app.get('env'));
 }
 
+var displayName = '';
+var urlPicture = '';
+
 
 //----------------------------------------------------------------------------------
 // basic routes for website pages
 //----------------------------------------------------------------------------------
 app.get('/', function(req, res){
-    res.render('index');
+    var locals = {
+        displayName: displayName,
+        urlPicture: urlPicture
+    };
+
+    res.render('index', locals);
 });
 
 app.get('/viewstream', function(req, res){
@@ -80,12 +88,14 @@ app.get('/signup', function(req, res){
 });
 
 app.get('/oauth2', function(req, res){
-    var authUrl = oa2Client.generateAuthUrl({
+    var authUrlGoogle = oa2Client.generateAuthUrl({
         access_type: 'offline',
         scope: 'https://www.googleapis.com/auth/plus.me'
     });
 
-    res.render('oauth2', {authUrl: authUrl});
+    res.render('oauth2', {authUrlGoogle: authUrlGoogle,
+                        authUrlFacebook: '',
+                        authUrlTwitter: ''});
 });
 
 app.get('/oauth2callback', function(req, res){
@@ -95,7 +105,13 @@ app.get('/oauth2callback', function(req, res){
         oa2Client.setCredentials(tokens);
         retrieveGooglePlusProfile();
     });
+    var locals = {
+        displayName: displayName,
+        urlPicture: urlPicture
+    };
+    res.render('index', locals);
 });
+
 
 var retrieveGooglePlusProfile = function(){
     plus.people.get({ userId: 'me', auth: oa2Client }, function (err, profile){
@@ -103,6 +119,8 @@ var retrieveGooglePlusProfile = function(){
             console.log('Error while fetching for google+ profile', err);
             return;
         }
+        displayName = profile.displayName;
+        urlPicture = profile.image.url;
         console.log(profile.displayName, ':', profile.tagline);
     });
 };
