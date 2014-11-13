@@ -4,6 +4,13 @@ var app = express();
 
 var credentials = require('./credentials.js');
 
+var googleapi = require('googleapis');
+var oauth2 = google.auth.oauth2;
+
+var oauth2Client = new OAuth2(credentials.oauth2.googleapi.clientID,
+                              credentials.oauth2.googleapi.clientSecret,
+                              credentials.oauth2.googleapi.redirectURI);
+
 
 //----------------------------------------------------------------------------------
 // view engine
@@ -67,6 +74,10 @@ app.get('/stream', function(req, res){
 
 app.get('/signup', function(req, res){
     res.render('signup');
+});
+
+app.get('/oauth2', function(req, res){
+    res.render('oauth2');
 });
 
 //----------------------------------------------------------------------------------
