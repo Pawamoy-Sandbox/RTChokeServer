@@ -5,7 +5,7 @@ var app = express();
 var credentials = require('./credentials.js');
 
 var googleapi = require('googleapis');
-var oauth2 = google.auth.oauth2;
+var OAuth2 = googleapi.auth.OAuth2;
 
 var oauth2Client = new OAuth2(credentials.oauth2.googleapi.clientID,
                               credentials.oauth2.googleapi.clientSecret,
