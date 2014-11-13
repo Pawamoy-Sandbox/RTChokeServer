@@ -2,8 +2,13 @@ var express = require('express');
 
 var app = express();
 
+var credentials = require('./credentials.js');
+
+
+//----------------------------------------------------------------------------------
 // view engine
 // we will be using Handlebars
+//----------------------------------------------------------------------------------
 var handlebars = require('express3-handlebars')
         .create({ defaultLayout: 'main'});
 
@@ -23,7 +28,31 @@ app.use(function(req,res,next){
 });
 
 
+//----------------------------------------------------------------------------------
+// Database management (mongoose)
+//----------------------------------------------------------------------------------
+var mongoose = require('mongoose');
+var opts = {
+    server: {
+        socketOptions: { keepAlive: 1}
+    }
+};
+
+switch (app.get('env')) {
+    case 'development':
+        mongoose.connect(credentials.mongo.development.connectionString, opts);
+        break;
+    case 'production':
+        mongoose.connect(credentials.mongo.production.connectionString, opts);
+        break;
+    default:
+        throw new Error('Unknown environment:' + app.get('env'));
+}
+
+
+//----------------------------------------------------------------------------------
 // basic routes for website pages
+//----------------------------------------------------------------------------------
 app.get('/', function(req, res){
     res.render('index');
 });
@@ -40,7 +69,9 @@ app.get('/signup', function(req, res){
     res.render('signup');
 });
 
+//----------------------------------------------------------------------------------
 // we redirect the HTTP requests
+//----------------------------------------------------------------------------------
 app.use(function(req, res){
     res.status(404);
     res.render('404');
@@ -54,6 +85,8 @@ app.use(function(req, res){
 });
 
 
+//----------------------------------------------------------------------------------
 app.listen(app.get('port'), function(){
-    console.log('RTChokeServer started on port' + app.get('port'));
+    console.log('RTChokeServer (' + app.get('env') +
+                ') started on port ' + app.get('port'));
 });
