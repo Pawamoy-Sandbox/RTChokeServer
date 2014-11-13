@@ -4,12 +4,15 @@ var app = express();
 
 var credentials = require('./credentials.js');
 
-var googleapi = require('googleapis');
-var OAuth2 = googleapi.auth.OAuth2;
+var gapi = require('googleapis');
+var OAuth2 = gapi.auth.OAuth2;
 
-var oauth2Client = new OAuth2(credentials.oauth2.googleapi.clientID,
+var oa2Client = new OAuth2(credentials.oauth2.googleapi.clientID,
                               credentials.oauth2.googleapi.clientSecret,
                               credentials.oauth2.googleapi.redirectURI);
+
+var plus = gapi.plus('v1');
+
 
 
 //----------------------------------------------------------------------------------
@@ -77,8 +80,34 @@ app.get('/signup', function(req, res){
 });
 
 app.get('/oauth2', function(req, res){
-    res.render('oauth2');
+    var authUrl = oa2Client.generateAuthUrl({
+        access_type: 'offline',
+        scope: 'https://www.googleapis.com/auth/plus.me'
+    });
+
+    res.render('oauth2', {authUrl: authUrl});
 });
+
+app.get('/oauth2callback', function(req, res){
+    var code = req.query.code;
+
+    oa2Client.getToken(code, function(err, tokens){
+        oa2Client.setCredentials(tokens);
+        retrieveGooglePlusProfile();
+    });
+});
+
+var retrieveGooglePlusProfile = function(){
+    plus.people.get({ userId: 'me', auth: oa2Client }, function (err, profile){
+        if (err){
+            console.log('Error while fetching for google+ profile', err);
+            return;
+        }
+        console.log(profile.displayName, ':', profile.tagline);
+    });
+};
+
+
 
 //----------------------------------------------------------------------------------
 // we redirect the HTTP requests
