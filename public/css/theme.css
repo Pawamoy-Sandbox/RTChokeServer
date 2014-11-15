@@ -18,5 +18,16 @@
 }
 
 #content {
-    width: 90%;
+    /*width: 90%;*/
+}
+
+#index_map {
+    width: 100%;
+    height: 300px;
+    margin-bottom: 40px;
+}
+
+#stream_now {
+    margin-top: 20px;
+    margin-left: 10px;
 }

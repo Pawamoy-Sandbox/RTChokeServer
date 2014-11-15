@@ -1,41 +1,38 @@
 <div class="container">
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="page-header">
-                <h1 id="container">Mockup index</h1>
-            </div>
-            <div class="bs-example">
-                    <div class="col-lg-4">
-                        <div class="bs-component">
-                        <p>Welcome {{displayName}} <img src="{{urlPicture}}" /></p>
-                            <div class="list-group">
-                                <a href="/viewstream" class="list-group-item">View stream</a>
-                                <a href="/stream" class="list-group-item">My stream </a>
-                                <a href="/signup" class="list-group-item">Sign up</a>
-                                <a href="/oauth2" class="list-group-item">Sign in with oauth2</a>
-                            </div>
-                        </div>
-                    </div>
-            </div>
-        </div>
-		 <div class="col-lg-8">
-				<div class="bs-component">
-						<img src="images/test_map.png"/>
-				</div>
-		</div>
-		<h1>Most popular </h1>
-		<div class="container">
-				<div class="row row-centered">
-					<div class="col-xs-6  col-sm-4" col-centered "><div class="item">  <embed src="https://www.youtube.com/v/Tlrvif8nrck"></embed><div class="content"></div></div></div>
-					<div class="col-xs-6  col-sm-4" col-centered "><div class="item">  <embed  src="https://www.youtube.com/v/Tlrvif8nrck"></embed><div class="content"></div></div></div>
-					<div class="col-xs-6  col-sm-4" col-centered "><div class="item">  <embed  src="https://www.youtube.com/v/Tlrvif8nrck"></embed><div class="content"></div></div></div>
-				</div>
-		</div>
-		<div class="col-lg-10 ">
-				<button class="btn btn-default">Stream now</button>                                 
+    <div class="page-header">
+        <h1>Mockup index</h1>
+    </div>
+    <div class="col-md-4">
+        <p>Welcome {{displayName}} <img src="{{urlPicture}}" /></p>
+        <div class="list-group">
+            <a href="/viewstream" class="list-group-item">View stream</a>
+            <a href="/stream" class="list-group-item">My stream </a>
+            <a href="/signup" class="list-group-item">Sign up</a>
+            <a href="/oauth2" class="list-group-item">Sign in with oauth2</a>
         </div>
     </div>
+    <div class="col-md-8">
+         <img id="index_map" src="images/test_map.png"/>
+    </div>
+        <h1>Most popular</h1>
+    <hr>
+    <div class="container">
+        <div class="col-md-3"><div class="item">
+            <embed src="https://www.youtube.com/v/Tlrvif8nrck"></embed>
+            <div class="content"></div></div>
+        </div>
+        <div class="col-md-3"><div class="item">
+            <embed  src="https://www.youtube.com/v/Tlrvif8nrck"></embed>
+            <div class="content"></div></div>
+        </div>
+        <div class="col-md-3"><div class="item">
+            <embed  src="https://www.youtube.com/v/Tlrvif8nrck"></embed>
+            <div class="content"></div></div>
+        </div>
+        <div class="col-md-3"><div class="item">
+            <embed  src="https://www.youtube.com/v/Tlrvif8nrck"></embed>
+            <div class="content"></div></div>
+        </div>
+        <button id="stream_now" class="btn-lg btn-default">Stream now</button>
+    </div>
 </div>
-    <script src="js/jquery-1.9.1.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/bootswatch.js"></script>
