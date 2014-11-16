@@ -16,11 +16,11 @@
                     {{!--<!--src="https://www.youtube.com/v/Tlrvif8nrck">-->--}}
             {{!--<!--</embed>-->--}}
         {{!--<!--</div>-->--}}
-        <div class="main-part well well-lg">
-            <div class="btn-group">
-                <span class="btn btn-info">Camera resolution</span>
-                <a href="#" class="btn btn-info dropdown-toggle" data-toggle="dropdown"><span
-                        class="caret"></span></a>
+        <div class="well well-lg">
+            <div id="cam-button" class="btn-group">
+                <a href="#" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+                    Camera resolution <span class="caret"></span>
+                </a>
                 <ul class="dropdown-menu">
                     <li><a id="qvga">320x240</a></li>
                     <li><a id="vga">640x480</a></li>
@@ -29,16 +29,21 @@
 
             <video autoplay></video>
             <script src="js/getUserMedia.js"></script>
+            <div id="info" class="list-group list-unstyled">
+                <span>Elapsed Time</span>
+                <a href="#" class="btn-sm pull-right"><span class="glyphicon glyphicon-resize-full"></span></a>
+                <a href="#" class="btn-sm pull-right"><span class="glyphicon glyphicon-cog pull-right"></span></a>
+            </div>
         </div>
     </div>
 
-    <div class="main-part col-md-4">
+    <div class="col-md-4">
         <h2>ChatRoom & Map</h2>
-        <div>
-            <textarea></textarea>
-        </div>
-        <div class="bs-component">
-            <img src="images/test_map.png"/>
+        <div class="well">
+            <h4>Messages here</h4>
+            <textarea class="input-sm" id="messages"></textarea>
+            <textarea class="input-sm" id="chat"></textarea>
+            <img id="chat-map" src="images/test_map.png"/>
         </div>
     </div>
 
