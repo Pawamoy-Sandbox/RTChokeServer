@@ -25,7 +25,11 @@ module.exports = function(app){
     app.get('/signup', function(req, res){
         res.render('signup');
     });
-    
+
+    app.get('/help', function(req, res){
+        res.render('help');
+    });
+
     app.get('/profile', function(req, res){
         res.render('profile');
     });
