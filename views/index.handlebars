@@ -3,7 +3,7 @@
         <h1>Mockup index</h1>
     </div>
     <div class="col-md-4">
-        <p>Welcome {{displayName}} <img src="{{urlPicture}}" /></p>
+        <p>Welcome {{#if displayName}}{{displayName}} <img src="{{urlPicture}}" />{{/if}}</p>
         <div class="list-group">
             <a href="/viewstream" class="list-group-item">View stream</a>
             <a href="/stream" class="list-group-item">My stream </a>
