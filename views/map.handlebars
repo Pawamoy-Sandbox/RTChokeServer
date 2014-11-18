@@ -2,45 +2,79 @@
 <div style="height:800px;width:80%;margin-left:auto;margin-right:auto;" id="map"></div>
 
 <script>
-  var view = new ol.View({
+var view = new ol.View({
     center: [0, 0],
     zoom: 2
-  });
-  
-  var map = new ol.Map({
+});
+
+var map = new ol.Map({
     target: 'map',
     layers: [
-      new ol.layer.Tile({
+        new ol.layer.Tile({
         source: new ol.source.OSM()
-      })
+    })
     ],
     view:view
-  });
+});
 
-  var geolocation = new ol.Geolocation({
+var geolocation = new ol.Geolocation({
     projection: view.getProjection()
-  });
+});
 
-  geolocation.setTracking(true);
+geolocation.setTracking(true);
 
 
-  var positionFeature = new ol.Feature();
-  var locationPoint=new ol.geom.Point([0,0]);
-  
-  // listen to changes in position
-  geolocation.on('change', function(evt) {
+var positionFeature = new ol.Feature();
+var locationPoint=new ol.geom.Point([0,0]);
+
+// listen to changes in position
+geolocation.on('change', function(evt) {
     locationPoint.setCoordinates(geolocation.getPosition());
     positionFeature.setGeometry(locationPoint);
-    
+
     //Center the map on the new position
     view.setCenter(geolocation.getPosition());
     view.setZoom(12);
-  });
+});
 
-  var featuresOverlay = new ol.FeatureOverlay({ 
+var featuresOverlay = new ol.FeatureOverlay({
     map: map,
     features: [positionFeature]
-  });
-  
+});
+
+
+var source = new ol.source.Vector();
+
+var vector = new ol.layer.Vector({
+    source: source,
+    style: new ol.style.Style({
+        fill: new ol.style.Fill({
+            color: 'rgba(255, 255, 255, 0.2)'
+        }),
+        stroke: new ol.style.Stroke({
+            color: '#ffcc33',
+            width: 2
+        }),
+        image: new ol.style.Circle({
+            radius: 7,
+            fill: new ol.style.Fill({
+                color: '#ffcc33'
+            })
+        })
+    })
+});
+
+var draw; // global so we can remove it later
+function addInteraction() {
+    draw = new ol.interaction.Draw({
+        source: source,
+        type: "LineString"
+    });
+    map.addInteraction(draw);
+}
+
+
+addInteraction();
+
 </script>
 
