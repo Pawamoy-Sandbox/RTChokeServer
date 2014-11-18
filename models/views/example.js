@@ -1,19 +1,12 @@
-var Customer = require('../customer.js');
+var _ = require('underscore');
 
-// convenience function for joining fields
-function smartJoin(arr, separator){
-    if(!separator) separator = ' ';
-    return arr.filter(function(elt){
-        return elt!==undefined &&
-            elt!==null &&
-            elt.toString().trim() !== '';
-    }).join(separator);
-}
-
-module.exports = function(customerId){
+// get a customer view model
+function getCustomerViewModel(customerId){
     var customer = Customer.findById(customerId);
+    
     if(!customer) return { error: 'Unknown customer ID: ' +
         req.params.customerId };
+        
     var orders = customer.getOrders().map(function(order){
         return {
             orderNumber: order.orderNumber,
@@ -22,31 +15,25 @@ module.exports = function(customerId){
             url: '/orders/' + order.orderNumber,
         }
     });
-    return {
-        firstName: customer.firstName,
-        lastName: customer.lastName,
-        name: smartJoin([customer.firstName, customer.lastName]),
-        email: customer.email,
-        address1: customer.address1,
-        address2: customer.address2,
-        city: customer.city,
-        state: customer.state,
-        zip: customer.zip,
+    
+    var vm = _.omit(customer, 'salesNotes');
+    
+    return _.extend(vm, {
+        name: smartJoin([vm.firstName, vm.lastName]),
         fullAddress: smartJoin([
             customer.address1,
             customer.address2,
             customer.city + ', ' +
-                customer.state + ' ' +
-                customer.zip,
-            ], '<br>'),
-            phone: customer.phone,
-            orders: customer.getOrders().map(function(order){
-                return {
-                    orderNumber: order.orderNumber,
-                    date: order.date,
-                    status: order.status,
-                    url: '/orders/' + order.orderNumber,
-                }
-            }),
-    }
+            customer.state + ' ' +
+            customer.zip,
+        ], '<br>'),
+        orders: customer.getOrders().map(function(order){
+            return {
+                orderNumber: order.orderNumber,
+                date: order.date,
+                status: order.status,
+                url: '/orders/' + order.orderNumber,
+            }
+        }),
+    });
 }

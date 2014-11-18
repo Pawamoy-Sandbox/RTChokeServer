@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-var Orders = require('./orders.js');
+//var Orders = require('./orders.js');
 
 customerSchema = mongoose.Schema({
     firstName: String,
@@ -18,9 +18,8 @@ customerSchema = mongoose.Schema({
     }],
 });
 
-customerSchema.methods.getOrders = function(){
-    return Orders.find({ customerId: this._id });
-};
+//customerSchema.methods.getOrders = function(){
+//    return Orders.find({ customerId: this._id });
+//};
 
-var Customer = mongoose.model('Customer', customerSchema);
-modules.export = Customer;
+exports.Customer = mongoose.model('Customer', customerSchema);
