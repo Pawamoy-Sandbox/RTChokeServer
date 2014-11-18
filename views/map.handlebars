@@ -1,0 +1,46 @@
+<script src="http://openlayers.org/en/v3.0.0/build/ol.js" type="text/javascript"></script>
+<div style="height:800px;width:80%;margin-left:auto;margin-right:auto;" id="map"></div>
+
+<script>
+  var view = new ol.View({
+    center: [0, 0],
+    zoom: 2
+  });
+  
+  var map = new ol.Map({
+    target: 'map',
+    layers: [
+      new ol.layer.Tile({
+        source: new ol.source.OSM()
+      })
+    ],
+    view:view
+  });
+
+  var geolocation = new ol.Geolocation({
+    projection: view.getProjection()
+  });
+
+  geolocation.setTracking(true);
+
+
+  var positionFeature = new ol.Feature();
+  var locationPoint=new ol.geom.Point([0,0]);
+  
+  // listen to changes in position
+  geolocation.on('change', function(evt) {
+    locationPoint.setCoordinates(geolocation.getPosition());
+    positionFeature.setGeometry(locationPoint);
+    
+    //Center the map on the new position
+    view.setCenter(geolocation.getPosition());
+    view.setZoom(12);
+  });
+
+  var featuresOverlay = new ol.FeatureOverlay({ 
+    map: map,
+    features: [positionFeature]
+  });
+  
+</script>
+

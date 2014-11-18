@@ -85,6 +85,22 @@ app.get('/signup', function(req, res){
     res.render('signup');
 });
 
+app.get('/profile', function(req, res){
+    res.render('profile');
+});
+
+app.get('/map', function(req, res){
+    res.render('map');
+});
+
+app.get('/track', function(req, res){
+    res.render('track.gpx');
+});
+
+app.get('/setting', function(req, res){
+    res.render('setting');
+});
+
 app.get('/oauth2', function(req, res){
     var authUrlGoogle = oa2Client.generateAuthUrl({
         access_type: 'offline',
