@@ -30,4 +30,9 @@
 #stream_now {
     margin-top: 20px;
     margin-left: 10px;
+    width: 50%;
+}
+
+.item embed {
+    max-width: 220px;
 }
