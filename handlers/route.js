@@ -62,7 +62,7 @@ module.exports = function(app){
 
         oauth2.oa2Client.getToken(code, function(err, tokens){
             oauth2.oa2Client.setCredentials(tokens);
-            retrieveGooglePlusProfile();
+            oauth2.retrieveGooglePlusProfile();
         });
         var locals = {
             displayName: displayName,
@@ -70,18 +70,6 @@ module.exports = function(app){
         };
         res.render('index', locals);
     });
-
-
-    var retrieveGooglePlusProfile = function(){
-        oauth2.plus.people.get({ userId: 'me', auth: oauth2.oa2Client }, function (err, profile){
-            if (err){
-                console.log('Error while fetching for google+ profile', err);
-                return;
-            }
-            displayName = profile.displayName;
-            urlPicture = profile.image.url;
-        });
-    };
 
     //----------------------------------------------------------------------------------
     // we redirect the HTTP requests
