@@ -5,6 +5,8 @@ var userSchema = mongoose.Schema({
     email: String,
     username: String,
     password: String,
+    displayName: String,
+    pictureUrl: String,
     description: String,
     oauth2: Boolean,
 });
