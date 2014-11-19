@@ -2,8 +2,8 @@ module.exports= function(app){
 
     var credentials = require('./credentials.js');
 
-    var passport = require('passport')
-        , GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+    var passport = require('passport');
+    var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 
     app.use(passport.initialize());
     app.use(passport.session());
