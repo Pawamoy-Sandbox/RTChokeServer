@@ -3,7 +3,7 @@ module.exports = function(app){
     var displayName = '';
     var urlPicture = '';
 
-    var oauth2 = require('./oauth2.js');
+    require('./passport.js')(app);
 
     app.get('/', function(req, res){
         var locals = {
@@ -47,28 +47,7 @@ module.exports = function(app){
     });
 
     app.get('/oauth2', function(req, res){
-        var authUrlGoogle = oauth2.oa2Client.generateAuthUrl({
-            access_type: 'offline',
-            scope: 'https://www.googleapis.com/auth/plus.me'
-        });
-
-        res.render('oauth2', {authUrlGoogle: authUrlGoogle,
-                   authUrlFacebook: '',
-                   authUrlTwitter: ''});
-    });
-
-    app.get('/oauth2callback', function(req, res){
-        var code = req.query.code;
-
-        oauth2.oa2Client.getToken(code, function(err, tokens){
-            oauth2.oa2Client.setCredentials(tokens);
-            oauth2.retrieveGooglePlusProfile();
-        });
-        var locals = {
-            displayName: displayName,
-            urlPicture: urlPicture
-        };
-        res.render('index', locals);
+        res.render('oauth2');
     });
 
     //----------------------------------------------------------------------------------

@@ -23,6 +23,10 @@
     "googleapis": "^1.0.20",
     "loadtest": "^1.2.4",
     "mongoose": "^3.8.19",
+    "passport": "^0.2.1",
+    "passport-facebook-token": "^0.3.2",
+    "passport-google-oauth": "^0.1.5",
+    "passport-twitter-token": "^0.1.5",
     "underscore": "^1.7.0"
   },
   "devDependencies": {
