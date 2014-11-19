@@ -11,5 +11,8 @@ var userSchema = mongoose.Schema({
     oauth2: Boolean,
 });
 
+var findOrCreate = require('mongoose-findorcreate');
+userSchema.plugin(findOrCreate);
+
 var User = mongoose.model('User', userSchema);
 module.exports = User;

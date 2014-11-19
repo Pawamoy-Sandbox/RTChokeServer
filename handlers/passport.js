@@ -2,6 +2,7 @@ module.exports= function(app){
 
     var credentials = require('./credentials.js');
 
+    var User = require('../models/user.js');
     var passport = require('passport');
     var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 
@@ -9,11 +10,13 @@ module.exports= function(app){
     app.use(passport.session());
 
     passport.serializeUser(function(user, done) {
-        done(null, user);
+        done(null, user.id);
     });
 
     passport.deserializeUser(function(user, done) {
-        done(null, user);
+        User.findById(user.id, function(err, user) {
+            done(err, user);
+        });
     });
 
     passport.use(new GoogleStrategy({
@@ -23,17 +26,23 @@ module.exports= function(app){
     },
     function(accessToken, refreshToken, profile, done) {
         console.log('profilename:' + profile.displayName);
-        return done(null, profile);
+        User.findOrCreate({ id: profile.id }, function (err, user){
+            user.displayName = profile.displayName;
+            user.pictureUrl = profile.photos ? profile.photos[0].value : '/img/faces/unknown-user-pic.jpg';
+            user.save(function(err){
+                if (err) return handleError(err);
+            });
+            return done(err, user);
+        });
     }));
 
     app.get('/auth/google',
             passport.authenticate('google', {scope: 'https://www.googleapis.com/auth/plus.login'})
            );
 
-           app.get('/auth/google/callback',
-                   passport.authenticate('google', { failureRedirect: '/auth' }),
-                   function(req, res) {
-                       // Successful authentication, redirect home.
-                       res.redirect('../../');
-                   });
+    app.get('/auth/google/callback',
+            passport.authenticate('google', { failureRedirect: '/auth' }),
+            function(req, res) {
+                res.redirect('/index');
+            });
 };

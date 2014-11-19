@@ -6,12 +6,16 @@ module.exports = function(app){
     require('./passport.js')(app);
 
     app.get('/', function(req, res){
-        var locals = {
-            displayName: displayName,
-            urlPicture: urlPicture
-        };
+        res.render('index', {user: req.user});
+    });
 
-        res.render('index', locals);
+    function ensureAuthenticated(req, res, next) {
+        if (req.isAuthenticated()) { return next(); }
+        res.redirect('/auth');
+    }
+
+    app.get('/index', ensureAuthenticated, function(req, res){
+        res.render('index', {user: req.user});
     });
 
     app.get('/viewstream', function(req, res){
@@ -47,7 +51,7 @@ module.exports = function(app){
     });
 
     app.get('/auth', function(req, res){
-        res.render('oauth2');
+        res.render('auth');
     });
 
     //----------------------------------------------------------------------------------

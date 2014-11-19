@@ -19,4 +19,12 @@ module.exports = function(app){
             throw new Error('Unknown environment:' + app.get('env'));
     }
 
+    var db = mongoose.connection;
+    db.on('error', console.error.bind(console, 'connection error:'));
+
+    db.once('open', function callback(){
+
+    });
+
+
 };
