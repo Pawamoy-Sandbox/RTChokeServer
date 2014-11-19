@@ -46,7 +46,7 @@ module.exports = function(app){
         res.render('setting');
     });
 
-    app.get('/oauth2', function(req, res){
+    app.get('/auth', function(req, res){
         res.render('oauth2');
     });
 

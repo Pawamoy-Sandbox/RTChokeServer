@@ -1,5 +1,21 @@
 var express = require('express');
+
+var cookieParser = require('cookie-parser');
+var session = require('express-session');
+var bodyParser = require('body-parser');
+
 var app = express();
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
+
+app.use(cookieParser());
+
+app.use(session({secret: '<mysecret>',
+                 saveUninitialized: true,
+                 resave: true}));
 
 // we start to listen to port 3000
 app.set('port', process.env.PORT || 3000);
