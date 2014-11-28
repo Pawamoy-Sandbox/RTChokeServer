@@ -2,8 +2,8 @@ module.exports = function(app, passport, User){
 
     var credentials = require('../credentials.js');
 
-    var twitterStrategy = require('passport-twitter').Strategy;
-    passport.use(new twitterStrategy({
+    var TwitterStrategy = require('passport-twitter').Strategy;
+    passport.use(new TwitterStrategy({
         callbackURL: credentials.oauth2.twitter.redirectURI,
         consumerKey: credentials.oauth2.twitter.clientID,
         consumerSecret: credentials.oauth2.twitter.clientSecret,
@@ -29,5 +29,4 @@ module.exports = function(app, passport, User){
             function(req, res) {
                 res.redirect('/index');
             });
-}
-
+};

@@ -29,5 +29,5 @@ module.exports = function(app, passport, User){
             function(req, res) {
                 res.redirect('/index');
             });
-}
+};
 
