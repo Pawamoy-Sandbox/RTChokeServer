@@ -20,5 +20,6 @@ module.exports = function(app){
 
     require('./passport/googleapi.js')(app, passport, User);
     require('./passport/facebook.js')(app, passport, User);
+    require('./passport/twitter.js')(app, passport, User);
 
 };

@@ -30,6 +30,7 @@
     "passport-facebook": "^1.0.3",
     "passport-facebook-token": "^0.3.2",
     "passport-google-oauth": "^0.1.5",
+    "passport-twitter": "^1.0.2",
     "passport-twitter-token": "^0.1.5",
     "underscore": "^1.7.0"
   },
