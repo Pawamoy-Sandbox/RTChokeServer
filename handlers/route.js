@@ -1,8 +1,5 @@
 module.exports = function(app){
 
-    var displayName = '';
-    var urlPicture = '';
-
     require('./passport.js')(app);
 
     app.get('/', function(req, res){
@@ -74,7 +71,4 @@ module.exports = function(app){
         res.status(500);
         res.render('500');
     });
-
-
-
 };
