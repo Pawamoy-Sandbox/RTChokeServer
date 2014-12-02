@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+var bcrypt   = require('bcrypt-nodejs');
 
 var userSchema = mongoose.Schema({
     id: Number,
@@ -8,11 +9,23 @@ var userSchema = mongoose.Schema({
     displayName: String,
     pictureUrl: String,
     description: String,
+	gendre: String,
     oauth2: Boolean,
 });
+
+// generating a hash
+userSchema.methods.generateHash = function(password) {
+    return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
+};
+
+// checking if password is valid
+userSchema.methods.validPassword = function(password) {
+    return bcrypt.compareSync(password, this.local.password);
+};
 
 var findOrCreate = require('mongoose-findorcreate');
 userSchema.plugin(findOrCreate);
 
 var User = mongoose.model('User', userSchema);
 module.exports = User;
+
