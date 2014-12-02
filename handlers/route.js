@@ -54,6 +54,12 @@ module.exports = function(app){
         res.render('auth');
     });
 
+    app.post('/process', function(req, res){
+        console.log('Username: ' + req.body.username);
+        res.redirect(303, '/');
+    });
+
+
     //----------------------------------------------------------------------------------
     // we redirect the HTTP requests
     //----------------------------------------------------------------------------------
@@ -68,5 +74,7 @@ module.exports = function(app){
         res.status(500);
         res.render('500');
     });
+
+
 
 };

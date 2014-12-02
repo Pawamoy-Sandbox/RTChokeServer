@@ -8,7 +8,7 @@ var app = express();
 
 var credentials = require('./handlers/credentials.js');
 
-app.use(bodyParser.json());
+//app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: true
 }));
