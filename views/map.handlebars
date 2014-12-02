@@ -2,13 +2,9 @@
 <div style="height:800px;width:80%;margin-left:auto;margin-right:auto;" id="map"></div>
 
 <script>
-<<<<<<< HEAD
 
   var numberMarkers=0;
   var view = new ol.View({
-=======
-var view = new ol.View({
->>>>>>> 39ca5b35a406803c6b99c90190b931e9dd9e2ef8
     center: [0, 0],
     zoom: 2
 });
@@ -29,7 +25,6 @@ var geolocation = new ol.Geolocation({
 
 geolocation.setTracking(true);
 
-<<<<<<< HEAD
   var positionFeature = new ol.Feature();
   var locationPoint=new ol.geom.Point([0,0]);
   
@@ -46,7 +41,6 @@ geolocation.setTracking(true);
     locationPoint.setCoordinates(geolocation.getPosition());
     positionFeature.setGeometry(locationPoint);
     markers.push(geolocation.getPosition())
-=======
 
 var positionFeature = new ol.Feature();
 var locationPoint=new ol.geom.Point([0,0]);
@@ -56,7 +50,6 @@ geolocation.on('change', function(evt) {
     locationPoint.setCoordinates(geolocation.getPosition());
     positionFeature.setGeometry(locationPoint);
 
->>>>>>> 39ca5b35a406803c6b99c90190b931e9dd9e2ef8
     //Center the map on the new position
     view.setCenter(geolocation.getPosition());
    
@@ -85,7 +78,6 @@ geolocation.on('change', function(evt) {
 var featuresOverlay = new ol.FeatureOverlay({
     map: map,
     features: [positionFeature]
-<<<<<<< HEAD
   });
       
   var layerLines = new ol.layer.Vector({
@@ -105,7 +97,6 @@ var featuresOverlay = new ol.FeatureOverlay({
         })
       })
   });
-=======
 });
 
 
@@ -139,7 +130,6 @@ function addInteraction() {
     map.addInteraction(draw);
 }
 
->>>>>>> 39ca5b35a406803c6b99c90190b931e9dd9e2ef8
 
   map.addLayer(layerLines);
 
