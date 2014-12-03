@@ -29,7 +29,6 @@ app.use(function(req,res,next){
     next();
 });
 
-app.use(session({ secret: 'ilovescotchscotchyscotchscotch' })); // session secret
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session
@@ -37,8 +36,6 @@ app.use(flash()); // use connect-flash for flash messages stored in session
 require('./handlers/mongoose.js')(app);
 require('./handlers/route.js')(app);
 require('./handlers/handlebars.js')(app);
-
-
 
 //----------------------------------------------------------------------------------
 app.listen(app.get('port'), function(){

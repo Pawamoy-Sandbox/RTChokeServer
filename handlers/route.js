@@ -2,6 +2,7 @@ module.exports = function(app){
 
 	var passport = require('passport');
 	var flash = require('connect-flash');
+	var mongoose = require('mongoose')
 	
     require('./passport.js')(app);
 
@@ -63,11 +64,12 @@ module.exports = function(app){
 	
         successRedirect : '/index', // redirect to the secure profile section
         failureRedirect : '/signup', // redirect back to the signup page if there is an error
-        failureFlash : true // allow flash messages
-		
-	
     }));
 
+	    app.post('/login', passport.authenticate('local-login', {
+        successRedirect : '/index', // redirect to the secure profile section
+        failureRedirect : '/index', // redirect back to the signup page if there is an error
+    }));
 
     //----------------------------------------------------------------------------------
     // we redirect the HTTP requests
