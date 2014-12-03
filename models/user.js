@@ -9,7 +9,7 @@ var userSchema = mongoose.Schema({
     displayName: String,
     pictureUrl: String,
     description: String,
-	gendre: String,
+    gender: String,
     oauth2: Boolean,
 });
 

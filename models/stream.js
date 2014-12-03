@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 
-var User = require('./user')
+// not sure that it is needed
+//var User = require('./user')
 
 var streamSchema = mongoose.Schema({
     id: Number,
@@ -9,6 +10,17 @@ var streamSchema = mongoose.Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
+    }
+    keywords: [String],
+    description: String,
+    is_public: Boolean,
+    chat: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Chat'
+    },
+    data: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'StreamData'
     }
 });
 
