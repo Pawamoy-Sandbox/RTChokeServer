@@ -1,8 +1,8 @@
 module.exports = function(app){
 
-	var passport = require('passport');
-	var flash = require('connect-flash');
-	var mongoose = require('mongoose');
+    var passport = require('passport');
+    var flash = require('connect-flash');
+    var mongoose = require('mongoose');
 
     require('./passport.js')(app);
 
@@ -14,11 +14,6 @@ module.exports = function(app){
         if (req.isAuthenticated()) { return next(); }
         res.redirect('/auth');
     }
-
-
-	app.use(flash());
-	app.use(passport.initialize());
-	app.use(passport.session());
 
     app.get('/index', ensureAuthenticated, function(req, res){
         res.render('index', {user: req.user});
