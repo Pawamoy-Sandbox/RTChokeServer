@@ -10,7 +10,7 @@ var streamSchema = mongoose.Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
-    }
+    },
     keywords: [String],
     description: String,
     is_public: Boolean,
