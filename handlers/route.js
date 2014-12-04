@@ -2,8 +2,8 @@ module.exports = function(app){
 
 	var passport = require('passport');
 	var flash = require('connect-flash');
-	var mongoose = require('mongoose')
-	
+	var mongoose = require('mongoose');
+
     require('./passport.js')(app);
 
     app.get('/', function(req, res){
@@ -15,11 +15,11 @@ module.exports = function(app){
         res.redirect('/auth');
     }
 
-	
-	app.use(flash()); 
+
+	app.use(flash());
 	app.use(passport.initialize());
 	app.use(passport.session());
-	
+
     app.get('/index', ensureAuthenticated, function(req, res){
         res.render('index', {user: req.user});
     });
@@ -61,7 +61,7 @@ module.exports = function(app){
     });
 
     app.post('/process', passport.authenticate('local-signup', {
-	
+
         successRedirect : '/index', // redirect to the secure profile section
         failureRedirect : '/signup', // redirect back to the signup page if there is an error
     }));
