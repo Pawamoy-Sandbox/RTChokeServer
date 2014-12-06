@@ -14,312 +14,311 @@
  */
 
 module.exports = function(app){
-var path = require('path');
-var express = require('express');
-var ws = require('ws');
-var minimist = require('minimist');
-var url = require('url');
-var kurento = require('kurento-client');
+    var path = require('path');
+    var express = require('express');
+    var ws = require('ws');
+    var minimist = require('minimist');
+    var url = require('url');
+    var kurento = require('kurento-client');
 
-var argv = minimist(process.argv.slice(2),
-{
-  default:
-  {
-    as_uri: "http://localhost:8080/",
-    ws_uri: "ws://localhost:8888/kurento"
-  }
-});
+    var argv = minimist(process.argv.slice(2),
+                        {
+                            default:
+                                {
+                                as_uri: "http://localhost:8080/",
+                                ws_uri: "ws://localhost:8888/kurento"
+                            }
+                        });
 
-//var app = express();
+                        //var app = express();
 
 
-/*
- * Definition of global variables.
- */
+    /*
+     * Definition of global variables.
+     */
 
-var idCounter = 0;
-var master = null;
-var pipeline = null;
-var viewers = {};
-var kurentoClient = null;
+                        var idCounter = 0;
+                        var master = null;
+                        var pipeline = null;
+                        var viewers = {};
+                        var kurentoClient = null;
 
-function nextUniqueId() {
-	idCounter++;
-	return idCounter.toString();
-}
+                        function nextUniqueId() {
+                            idCounter++;
+                            return idCounter.toString();
+                        }
 
-/*
- * Server startup
- */
+                        /*
+                         * Server startup
+                         */
 
-var asUrl = url.parse(argv.as_uri);
-var port = asUrl.port;
-var server = app.listen(port, function() {
-	console.log('Kurento Tutorial started');
-	console.log('Open ' + url.format(asUrl) + ' with a WebRTC capable browser');
-});
+                        var asUrl = url.parse(argv.as_uri);
+                        var port = asUrl.port;
+                        var server = app.listen(port, function() {
+                            console.log('Kurento Tutorial started');
+                            console.log('Open ' + url.format(asUrl) + ' with a WebRTC capable browser');
+                        });
 
-var wss = new ws.Server({
-	server : server,
-	path : '/call'
-});
+                        var wss = new ws.Server({
+                            server : server,
+                            path : '/call'
+                        });
 
-/*
- * Management of WebSocket messages
- */
-wss.on('connection', function(ws) {
+                        /*
+                         * Management of WebSocket messages
+                         */
+                        wss.on('connection', function(ws) {
 
-	var sessionId = nextUniqueId();
+                            var sessionId = nextUniqueId();
 
-	console.log('Connection received with sessionId ' + sessionId);
+                            console.log('Connection received with sessionId ' + sessionId);
 
-	ws.on('error', function(error) {
-		console.log('Connection ' + sessionId + ' error');
-		stop(sessionId);
-	});
+                            ws.on('error', function(error) {
+                                console.log('Connection ' + sessionId + ' error');
+                                stop(sessionId);
+                            });
 
-	ws.on('close', function() {
-		console.log('Connection ' + sessionId + ' closed');
-		stop(sessionId);
-	});
+                            ws.on('close', function() {
+                                console.log('Connection ' + sessionId + ' closed');
+                                stop(sessionId);
+                            });
 
-	ws.on('message', function(_message) {
-		var message = JSON.parse(_message);
-		console.log('Connection ' + sessionId + ' received message ', message);
+                            ws.on('message', function(_message) {
+                                var message = JSON.parse(_message);
+                                console.log('Connection ' + sessionId + ' received message ', message);
 
-		switch (message.id) {
-		case 'master':
-			startMaster(sessionId, message.sdpOffer,
-				function(error, sdpAnswer) {
-					if (error) {
-						return ws.send(JSON.stringify({
-							id : 'masterResponse',
-							response : 'rejected',
-							message : error
-						}));
-					}
-					ws.send(JSON.stringify({
-						id : 'masterResponse',
-						response : 'accepted',
-						sdpAnswer : sdpAnswer
-					}));
-				});
-			break;
+                                switch (message.id) {
+                                    case 'master':
+                                        startMaster(sessionId, message.sdpOffer,
+                                                    function(error, sdpAnswer) {
+                                                        if (error) {
+                                                            return ws.send(JSON.stringify({
+                                                                id : 'masterResponse',
+                                                                response : 'rejected',
+                                                                message : error
+                                                            }));
+                                                        }
+                                                        ws.send(JSON.stringify({
+                                                            id : 'masterResponse',
+                                                            response : 'accepted',
+                                                            sdpAnswer : sdpAnswer
+                                                        }));
+                                                    });
+                                                    break;
 
-		case 'viewer':
-			startViewer(sessionId, message.sdpOffer, ws, function(error,
-					sdpAnswer) {
-				if (error) {
-					return ws.send(JSON.stringify({
-						id : 'viewerResponse',
-						response : 'rejected',
-						message : error
-					}));
-				}
+                                                    case 'viewer':
+                                                        startViewer(sessionId, message.sdpOffer, ws, function(error,
+                                                                                                              sdpAnswer) {
+                                                                                                                  if (error) {
+                                                                                                                      return ws.send(JSON.stringify({
+                                                                                                                          id : 'viewerResponse',
+                                                                                                                          response : 'rejected',
+                                                                                                                          message : error
+                                                                                                                      }));
+                                                                                                                  }
 
-				ws.send(JSON.stringify({
-					id : 'viewerResponse',
-					response : 'accepted',
-					sdpAnswer : sdpAnswer
-				}));
-			});
-			break;
+                                                                                                                  ws.send(JSON.stringify({
+                                                                                                                      id : 'viewerResponse',
+                                                                                                                      response : 'accepted',
+                                                                                                                      sdpAnswer : sdpAnswer
+                                                                                                                  }));
+                                                                                                              });
+                                                                                                              break;
 
-		case 'stop':
-			stop(sessionId);
-			break;
+                                                                                                              case 'stop':
+                                                                                                                  stop(sessionId);
+                                                                                                              break;
 
-		default:
-			ws.send(JSON.stringify({
-				id : 'error',
-				message : 'Invalid message ' + message
-			}));
-			break;
-		}
-	});
-});
+                                                                                                              default:
+                                                                                                                  ws.send(JSON.stringify({
+                                                                                                                  id : 'error',
+                                                                                                                  message : 'Invalid message ' + message
+                                                                                                              }));
+                                                                                                              break;
+                                }
+                            });
+                        });
 
-/*
- * Definition of functions
- */
+                        /*
+                         * Definition of functions
+                         */
 
-// Recover kurentoClient for the first time.
-function getKurentoClient(callback) {
-	if (kurentoClient !== null) {
-		return callback(null, kurentoClient);
-	}
+                        // Recover kurentoClient for the first time.
+                        function getKurentoClient(callback) {
+                            if (kurentoClient !== null) {
+                                return callback(null, kurentoClient);
+                            }
 
-	kurento(argv.ws_uri, function(error, _kurentoClient) {
-		if (error) {
-			console.log("Coult not find media server at address " + argv.ws_uri);
-			return callback("Could not find media server at address" + argv.ws_uri
-					+ ". Exiting with error " + error);
-		}
+                            kurento(argv.ws_uri, function(error, _kurentoClient) {
+                                if (error) {
+                                    console.log("Coult not find media server at address " + argv.ws_uri);
+                                    return callback("Could not find media server at address" + argv.ws_uri + ". Exiting with error " + error);
+                                }
 
-		kurentoClient = _kurentoClient;
-		callback(null, kurentoClient);
-	});
-}
+                                kurentoClient = _kurentoClient;
+                                callback(null, kurentoClient);
+                            });
+                        }
 
-function startMaster(id, sdp, callback) {
-	if (master !== null) {
-		return callback("Another user is currently acting as sender. Try again later ...");
-	}
+                        function startMaster(id, sdp, callback) {
+                            if (master !== null) {
+                                return callback("Another user is currently acting as sender. Try again later ...");
+                            }
 
-	master = {
-		id : id,
-		webRtcEndpoint : null
-	};
+                            master = {
+                                id : id,
+                                webRtcEndpoint : null
+                            };
 
-	if (pipeline !== null) {
-		stop(id);
-	}
+                            if (pipeline !== null) {
+                                stop(id);
+                            }
 
-	getKurentoClient(function(error, kurentoClient) {
-		if (error) {
-			stop(id);
-			return callback(error);
-		}
+                            getKurentoClient(function(error, kurentoClient) {
+                                if (error) {
+                                    stop(id);
+                                    return callback(error);
+                                }
 
-		if (master === null) {
-			return callback('Request was cancelled by the user. You will not be sending any longer');
-		}
+                                if (master === null) {
+                                    return callback('Request was cancelled by the user. You will not be sending any longer');
+                                }
 
-		kurentoClient.create('MediaPipeline', function(error, _pipeline) {
-			if (error) {
-				return callback(error);
-			}
+                                kurentoClient.create('MediaPipeline', function(error, _pipeline) {
+                                    if (error) {
+                                        return callback(error);
+                                    }
 
-			if (master === null) {
-				return callback('Request was cancelled by the user. You will not be sending any longer');
-			}
+                                    if (master === null) {
+                                        return callback('Request was cancelled by the user. You will not be sending any longer');
+                                    }
 
-			pipeline = _pipeline;
-			pipeline.create('WebRtcEndpoint', function(error, webRtcEndpoint) {
-				if (error) {
-					stop(id);
-					return callback(error);
-				}
+                                    pipeline = _pipeline;
+                                    pipeline.create('WebRtcEndpoint', function(error, webRtcEndpoint) {
+                                        if (error) {
+                                            stop(id);
+                                            return callback(error);
+                                        }
 
-				if (master === null) {
-					return callback('Request was cancelled by the user. You will not be sending any longer');
-				}
+                                        if (master === null) {
+                                            return callback('Request was cancelled by the user. You will not be sending any longer');
+                                        }
 
-				master.webRtcEndpoint = webRtcEndpoint;
+                                        master.webRtcEndpoint = webRtcEndpoint;
 
-				webRtcEndpoint.processOffer(sdp, function(error, sdpAnswer) {
-					if (error) {
-						stop(id)
-						return callback(error);
-					}
+                                        webRtcEndpoint.processOffer(sdp, function(error, sdpAnswer) {
+                                            if (error) {
+                                                stop(id);
+                                                return callback(error);
+                                            }
 
-					if (master === null) {
-						return callback('Request was cancelled by the user. You will not be sending any longer');
-					}
+                                            if (master === null) {
+                                                return callback('Request was cancelled by the user. You will not be sending any longer');
+                                            }
 
-					callback( null, sdpAnswer);
-				});
-			});
-		});
-	});
-}
+                                            callback( null, sdpAnswer);
+                                        });
+                                    });
+                                });
+                            });
+                        }
 
-function startViewer(id, sdp, ws, callback) {
-	if (master === null || master.webRtcEndpoint === null) {
-		return callback("No active sender now. Become sender or . Try again later ...");
-	}
+                        function startViewer(id, sdp, ws, callback) {
+                            if (master === null || master.webRtcEndpoint === null) {
+                                return callback("No active sender now. Become sender or . Try again later ...");
+                            }
 
-	if (viewers[id]) {
-		return callback("You are already viewing in this session. Use a different browser to add additional viewers.")
-	}
+                            if (viewers[id]) {
+                                return callback("You are already viewing in this session. Use a different browser to add additional viewers.");
+                            }
 
-	pipeline.create('WebRtcEndpoint', function(error, webRtcEndpoint) {
-		if (error) {
-			return callback(error);
-		}
+                            pipeline.create('WebRtcEndpoint', function(error, webRtcEndpoint) {
+                                if (error) {
+                                    return callback(error);
+                                }
 
-		var viewer = {
-			id : id,
-			ws : ws,
-			webRtcEndpoint : webRtcEndpoint
-		};
-		viewers[viewer.id] = viewer;
+                                var viewer = {
+                                    id : id,
+                                    ws : ws,
+                                    webRtcEndpoint : webRtcEndpoint
+                                };
+                                viewers[viewer.id] = viewer;
 
-		if (master === null) {
-			stop(id);
-			return callback("No active sender now. Become sender or . Try again later ...");
-		}
+                                if (master === null) {
+                                    stop(id);
+                                    return callback("No active sender now. Become sender or . Try again later ...");
+                                }
 
-		webRtcEndpoint.processOffer(sdp, function(error, sdpAnswer) {
-			if (error) {
-				stop(id);
-				return callback(error);
-			}
+                                webRtcEndpoint.processOffer(sdp, function(error, sdpAnswer) {
+                                    if (error) {
+                                        stop(id);
+                                        return callback(error);
+                                    }
 
-			if (master === null) {
-				stop(id);
-				return callback("No active sender now. Become sender or . Try again later ...");
-			}
+                                    if (master === null) {
+                                        stop(id);
+                                        return callback("No active sender now. Become sender or . Try again later ...");
+                                    }
 
-			master.webRtcEndpoint.connect(webRtcEndpoint, function(error) {
-				if (error) {
-					stop(id);
-					return callback(error);
-				}
+                                    master.webRtcEndpoint.connect(webRtcEndpoint, function(error) {
+                                        if (error) {
+                                            stop(id);
+                                            return callback(error);
+                                        }
 
-				if (master === null) {
-					stop(id);
-					return callback("No active sender now. Become sender or . Try again later ...");
-				}
+                                        if (master === null) {
+                                            stop(id);
+                                            return callback("No active sender now. Become sender or . Try again later ...");
+                                        }
 
-				return callback(null, sdpAnswer);
-			});
-		});
-	});
-}
+                                        return callback(null, sdpAnswer);
+                                    });
+                                });
+                            });
+                        }
 
-function removeReceiver(id) {
-	if (!receivers[id]) {
-		return;
-	}
-	var receiver = receivers[id];
-	receiver.webRtcEndpoint.release();
-	delete receiver[id];
-}
+                        function removeReceiver(id) {
+                            if (!receivers[id]) {
+                                return;
+                            }
+                            var receiver = receivers[id];
+                            receiver.webRtcEndpoint.release();
+                            delete receiver[id];
+                        }
 
-function removeSender() {
-	if (sender === null) {
-		return;
-	}
+                        function removeSender() {
+                            if (sender === null) {
+                                return;
+                            }
 
-	for ( var ix in receivers) {
-		removeReceiver(ix);
-	}
+                            for ( var ix in receivers) {
+                                removeReceiver(ix);
+                            }
 
-	sender.webRtcEndpoint.release();
-	sender = null;
-}
+                            sender.webRtcEndpoint.release();
+                            sender = null;
+                        }
 
-function stop(id, ws) {
-	if (master !== null && master.id == id) {
-		for ( var ix in viewers) {
-			var viewer = viewers[ix];
-			if (viewer.ws) {
-				viewer.ws.send(JSON.stringify({
-					id : 'stopCommunication'
-				}));
-			}
-		}
-		viewers = {};
-		pipeline.release();
-		pipeline = null;
-		master = null;
-	} else if (viewers[id]) {
-		var viewer = viewers[id];
-		if (viewer.webRtcEndpoint)
-			viewer.webRtcEndpoint.release();
-		delete viewers[id];
-	}
-}
+                        function stop(id, ws) {
+                            if (master !== null && master.id == id) {
+                                for ( var ix in viewers) {
+                                    var viewer = viewers[ix];
+                                    if (viewer.ws) {
+                                        viewer.ws.send(JSON.stringify({
+                                            id : 'stopCommunication'
+                                        }));
+                                    }
+                                }
+                                viewers = {};
+                                pipeline.release();
+                                pipeline = null;
+                                master = null;
+                            } else if (viewers[id]) {
+                                var currentViewer = viewers[id];
+                                if (currentViewer.webRtcEndpoint)
+                                    currentViewer.webRtcEndpoint.release();
+                                delete viewers[id];
+                            }
+                        }
 
 };
