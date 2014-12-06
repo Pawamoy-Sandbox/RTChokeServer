@@ -30,6 +30,7 @@ app.use(function(req,res,next){
 });
 
 require('./handlers/mongoose.js')(app);
+require('./handlers/kurento.js')(app);
 require('./handlers/route.js')(app);
 require('./handlers/handlebars.js')(app);
 
