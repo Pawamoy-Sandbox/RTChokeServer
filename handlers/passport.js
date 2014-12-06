@@ -6,7 +6,7 @@ module.exports = function(app){
     var LocalStrategy   = require('passport-local').Strategy;
 
     passport.serializeUser(function(user, done) {
-        done(null, user.id);
+        done(null, user._id);
     });
 
     // used to deserialize the user
@@ -73,9 +73,9 @@ module.exports = function(app){
             if (err)
                 return done(err);
             if (!user)
-                return done(null, false, req.flash('loginMessage', 'No user found.'));
+                return done(null, false, console.log('loginMessage', 'No user found.'));
             if (!user.validPassword(password))
-                return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.'));
+                return done(null, false, console.log('loginMessage', 'Oops! Wrong password.'));
 
             return done(null, user);
         });
