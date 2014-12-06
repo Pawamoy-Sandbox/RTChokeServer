@@ -15,7 +15,7 @@
 
 console.log('index loaded !');
 
-var ws = new WebSocket('ws://' + 'localhost:8080' + '/call');
+var ws = new WebSocket('ws://' + 'rtchoke-dev.u-strasbg.fr:8080' + '/call');
 var video;
 var webRtcPeer;
 

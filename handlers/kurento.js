@@ -25,8 +25,8 @@ module.exports = function(app){
                         {
                             default:
                                 {
-                                as_uri: "http://localhost:8080/",
-                                ws_uri: "ws://localhost:8888/kurento"
+                                as_uri: "http://rtchoke-dev.u-strasbg.fr:8080/",
+                                ws_uri: "ws://rtchoke-dev.u-strasbg.fr:8888/kurento"
                             }
                         });
 
