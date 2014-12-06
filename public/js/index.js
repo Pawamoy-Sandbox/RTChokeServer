@@ -20,7 +20,7 @@ var video;
 var webRtcPeer;
 
 window.onload = function() {
-	console = new Console('console', console);
+	//console = new Console('console', console);
 	video = document.getElementById('video');
 }
 
@@ -30,7 +30,7 @@ window.onbeforeunload = function() {
 
 ws.onmessage = function(message) {
 	var parsedMessage = JSON.parse(message.data);
-	console.info('Received message: ' + message.data);
+	//console.info('Received message: ' + message.data);
 
 	switch (parsedMessage.id) {
 	case 'masterResponse':
@@ -43,14 +43,14 @@ ws.onmessage = function(message) {
 		dispose();
 		break;
 	default:
-		console.error('Unrecognized message', parsedMessage);
+		//console.error('Unrecognized message', parsedMessage);
 	}
 }
 
 function masterResponse(message) {
 	if (message.response != 'accepted') {
 		var errorMsg = message.message ? message.message : 'Unknow error';
-		console.info('Call not accepted for the following reason: ' + errorMsg);
+		//console.info('Call not accepted for the following reason: ' + errorMsg);
 		dispose();
 	} else {
 		webRtcPeer.processSdpAnswer(message.sdpAnswer);
@@ -60,7 +60,7 @@ function masterResponse(message) {
 function viewerResponse(message) {
 	if (message.response != 'accepted') {
 		var errorMsg = message.message ? message.message : 'Unknow error';
-		console.info('Call not accepted for the following reason: ' + errorMsg);
+		//console.info('Call not accepted for the following reason: ' + errorMsg);
 		dispose();
 	} else {
 		webRtcPeer.processSdpAnswer(message.sdpAnswer);
