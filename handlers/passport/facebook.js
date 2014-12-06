@@ -9,10 +9,11 @@ module.exports = function(app, passport, User){
         clientSecret: credentials.oauth2.facebook.clientSecret,
     },
     function(accessToken, refreshToken, profile, done) {
-        console.log('profilename:' + profile.displayName);
+       console.log('profilename:' + profile.displayName);
         User.findOrCreate({ id: profile.id }, function (err, user){
             user.displayName = profile.displayName;
             user.pictureUrl = profile.photos ? profile.photos[0].value : '/img/faces/unknown-user-pic.jpg';
+            user.email = profile.emails[0];
             user.save(function(err){
                 if (err) return handleError(err);
             });
