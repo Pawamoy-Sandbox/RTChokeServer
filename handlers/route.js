@@ -1,8 +1,9 @@
 module.exports = function(app){
 
-	var passport = require('passport');
-	var flash = require('connect-flash');
-	
+    var passport = require('passport');
+    var flash = require('connect-flash');
+    var mongoose = require('mongoose');
+
     require('./passport.js')(app);
 
     app.get('/', function(req, res){
@@ -14,13 +15,19 @@ module.exports = function(app){
         res.redirect('/auth');
     }
 
-	
-	app.use(flash()); 
-	app.use(passport.initialize());
-	app.use(passport.session());
-	
     app.get('/index', ensureAuthenticated, function(req, res){
         res.render('index', {user: req.user});
+    });
+
+    app.get('/viewstream/:streamid', function(req, res){
+        var Stream = require('../models/stream.js');
+        Stream.findById(req.param('streamid'), function(err, stream){
+            if (err) {
+                res.status(404);
+                res.render(404);
+            }
+            res.render('viewstream', {stream: stream});
+        });
     });
 
     app.get('/viewstream', function(req, res){
@@ -60,14 +67,14 @@ module.exports = function(app){
     });
 
     app.post('/process', passport.authenticate('local-signup', {
-	
         successRedirect : '/index', // redirect to the secure profile section
         failureRedirect : '/signup', // redirect back to the signup page if there is an error
-        failureFlash : true // allow flash messages
-		
-	
     }));
 
+    app.post('/login', passport.authenticate('local-login', {
+        successRedirect : '/index', // redirect to the secure profile section
+        failureRedirect : '/index', // redirect back to the signup page if there is an error
+    }));
 
     //----------------------------------------------------------------------------------
     // we redirect the HTTP requests

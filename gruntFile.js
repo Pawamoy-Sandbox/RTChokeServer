@@ -12,8 +12,12 @@ module.exports = function(grunt){
             all: { src: 'qa/tests-*.js', options: { ui: 'tdd' }, }
         },
         jshint: {
-            app: ['rtchokeserver.js', 'handlers/*.js', 'handlers/passport/*.js', 'lib/**/*.js'],
-            qa: ['Gruntfile.js', 'public/qa/**/*.js', 'qa/**/*.js'],
+            app: [  'rtchokeserver.js',
+                    'handlers/**/*.js',
+                    'lib/**/*.js'],
+            qa: [   'Gruntfile.js',
+                    'public/qa/**/*.js',
+                    'qa/**/*.js'],
         },
     });
     // register tasks

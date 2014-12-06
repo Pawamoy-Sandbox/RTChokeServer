@@ -1,21 +1,24 @@
-var express = require('express');
+var express         = require('express');
 
-var bodyParser = require('body-parser');
-var passport = require('passport');
-var flash    = require('connect-flash');
-var cookieParser = require('cookie-parser');
-var session      = require('express-session');
-var app = express();
-var credentials = require('./handlers/credentials.js');
+var bodyParser      = require('body-parser');
+var passport        = require('passport');
+var flash           = require('connect-flash');
+var cookieParser    = require('cookie-parser');
+var session         = require('express-session');
+var app             = express();
+var credentials     = require('./handlers/credentials.js');
 
-//app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
-  extended: true
+    extended: true
 }));
 
-//app.use(session({secret: '<mysecret>',
-  //               saveUninitialized: true,
-    //             resave: true}));
+app.use(session({secret: '<mysecret>',
+                 saveUninitialized: true,
+                 resave: true}));
+
+app.use(flash());
+app.use(passport.initialize());
+app.use(passport.session());
 
 // we start to listen to port 3000
 app.set('port', process.env.PORT || 3000);
@@ -29,16 +32,10 @@ app.use(function(req,res,next){
     next();
 });
 
-app.use(session({ secret: 'ilovescotchscotchyscotchscotch' })); // session secret
-app.use(passport.initialize());
-app.use(passport.session()); // persistent login sessions
-app.use(flash()); // use connect-flash for flash messages stored in session
- 
 require('./handlers/mongoose.js')(app);
+require('./handlers/kurento.js')(app);
 require('./handlers/route.js')(app);
 require('./handlers/handlebars.js')(app);
-
-
 
 //----------------------------------------------------------------------------------
 app.listen(app.get('port'), function(){
