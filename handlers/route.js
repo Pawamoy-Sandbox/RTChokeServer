@@ -34,11 +34,11 @@ module.exports = function(app){
     });
 
     app.get('/viewstream', function(req, res){
-        res.render('viewstream');
+        res.render('viewstream', {user: req.user});
     });
 
     app.get('/stream', function(req, res){
-        res.render('stream');
+        res.render('stream', {user: req.user});
     });
 
     app.get('/signup', function(req, res){
@@ -46,7 +46,7 @@ module.exports = function(app){
     });
 
     app.get('/help', function(req, res){
-        res.render('help');
+        res.render('help', {user: req.user});
     });
 
     app.get('/profile', function(req, res){
@@ -54,15 +54,15 @@ module.exports = function(app){
     });
 
     app.get('/map', function(req, res){
-        res.render('map');
+        res.render('map', {user: req.user});
     });
 
     app.get('/track', function(req, res){
-        res.render('track.gpx');
+        res.render('track.gpx', {user: req.user});
     });
 
     app.get('/setting', function(req, res){
-        res.render('setting');
+        res.render('setting', {user: req.user});
     });
 
     app.get('/auth', function(req, res){
