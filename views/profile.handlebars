@@ -1,80 +1,72 @@
-
-<div class="container theme-showcase" role="main">
-</div>
-
+<link rel="stylesheet" href="css/signup.css">
 <div class="container">
     <div class="row">
         <div class="col-lg-12">
             <div class="page-header">
-                <h1 id="container">Profile</h1>
+                <h1 id="container">Profile of {{user.displayName}}</h1>
             </div>
             <div class="row">
                 <div class="col-lg-6">
                     <div class="well bs-component">
-                        <form class="form-horizontal">
+                        <form class="form-horizontal" role="form" action="/process" method="POST">
                             <fieldset>
-                                <legend>Legend</legend>
+                                <legend>Create Your Account</legend>
                                 <div class="form-group">
-                                    <img src="http://placehold.it/200x200">
+                                    <label for="username" class="col-lg-2 control-label">Username</label>
                                     <div class="col-lg-10">
-                                        <input type="file"  id="avatar" placeholder="Avatar">
+                                        <input type="text" class="form-control" id="inputUsername" placeholder="Username" name="username" value="{{user.username}}">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="inputEmail" class="col-lg-2 control-label">Email</label>
                                     <div class="col-lg-10">
-                                        <input type="text" class="form-control" id="inputEmail" placeholder="Email">
+                                        <input type="text" class="form-control" id="inputEmail" placeholder="Email" name="email" value="{{user.email}}">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="inputPassword" class="col-lg-2 control-label">Password</label>
                                     <div class="col-lg-10">
-                                        <input type="password" class="form-control" id="inputPassword" placeholder="Password">
-                                        <button class="btn btn-primary "
-                                            style="float:right;">Change</button>
+                                        <input type="password" class="form-control" id="inputPassword" placeholder="Password" name="password">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputConfirmPassword" class="col-lg-2 control-label">Confirm Password</label>
+                                    <div class="col-lg-10">
+                                        <input type="password" class="form-control" id="inputConfirmPassword" placeholder="Confirm Password" name="confirmPass">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="textArea" class="col-lg-2 control-label">Profile description</label>
                                     <div class="col-lg-10">
-                                        <textarea class="form-control" rows="3" id="textArea"></textarea>
+                                        <textarea class="form-control" rows="3" id="textArea">{{user.description}}</textarea>
                                         <span class="help-block">Tell us a bit about you :)</span>
                                     </div>
                                 </div>
-                                <legend>Confidentialité</legend>
                                 <div class="form-group">
-                                    <label class="col-lg-2 control-label">Radios</label>
+                                    <label class="col-lg-2 control-label">Gendre</label>
                                     <div class="col-lg-10">
                                         <div class="radio">
                                             <label>
-                                                <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked=""> Option one is this
+                                                <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked=""> Male
                                             </label>
                                         </div>
                                         <div class="radio">
                                             <label>
-                                                <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2"> Option two can be something else
+                                                <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2"> Female
                                             </label>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="select" class="col-lg-2 control-label">Selects</label>
+                                    <label class="col-lg-2 control-label">Profile Photo</label>
                                     <div class="col-lg-10">
-                                        <select class="form-control" id="select">
-                                            <option>1</option>
-                                            <option>2</option>
-                                            <option>3</option>
-                                            <option>4</option>
-                                            <option>5</option>
-                                        </select>
-                                        <br>
-                                        <select multiple="" class="form-control">
-                                            <option>1</option>
-                                            <option>2</option>
-                                            <option>3</option>
-                                            <option>4</option>
-                                            <option>5</option>
-                                        </select>
+                                        <label>
+                                            <input type="text" class="form-control" id="uploadFile" placeholder="Choose File" value="{{user.pictureUrl}}">
+                                        </label>
+                                        <div class="fileUpload btn btn-primary">
+                                            <span>Upload</span>
+                                            <input id="uploadBtn" type="file" class="upload" />
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -91,4 +83,3 @@
         </div>
     </div>
 </div>
-

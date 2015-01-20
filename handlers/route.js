@@ -3,6 +3,9 @@ module.exports = function(app){
     var passport = require('passport');
     var flash = require('connect-flash');
     var mongoose = require('mongoose');
+    var User = require('../models/user.js');
+
+    app.disable('etag');
 
     require('./passport.js')(app);
 
@@ -76,9 +79,16 @@ module.exports = function(app){
         failureRedirect : '/index', // redirect back to the signup page if there is an error
     }));
 
-    app.get('/logout', function(req, res){
+    app.get('/logout', ensureAuthenticated, function(req, res){
         req.logout();
         res.render('index', {user: req.user});
+    });
+
+    app.get('/user/profile/:userId', function(req, res, done){
+        var user = User.findById(req.params.userId, function(err, user) {
+            res.render('profile', {user: user});
+        });
+
     });
 
     //----------------------------------------------------------------------------------

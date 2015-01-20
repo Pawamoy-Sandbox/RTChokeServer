@@ -7,9 +7,9 @@
     {{/if}}
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8">
-    <link rel="stylesheet" href="css/bootstrap.css" media="screen">
-    <link rel="stylesheet" href="css/bootswatch.min.css">
-    <link rel="stylesheet" href="css/theme.css">
+    <link rel="stylesheet" href="/css/bootstrap.css" media="screen">
+    <link rel="stylesheet" href="/css/bootswatch.min.css">
+    <link rel="stylesheet" href="/css/theme.css">
     {{{_sections.css}}}
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -21,7 +21,7 @@
 <header>
     <script src="js/bsa.js"></script>
     <div class="navbar navbar-default navbar-fixed-top">
-        <div class="container">
+        <div class="container-fluid">
             <div class="navbar-header">
                 <a href="../" class="navbar-brand"><span class="primary">RT</span><span class="secondary">Choke</span></a>
                 <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
@@ -50,12 +50,12 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="/help">Need help ?</a>
+                        <a href="/help">Help ?</a>
                     </li>
                 </ul>
                 {{#if user}}
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="/logout">{{user.email}}</a></li>
+                        <li><a href="/user/profile/{{user._id}}">{{user.email}}</a></li>
                         <form class="navbar-form navbar-right" method='put' action='/logout'>
                             <button type="submit" class="btn btn-info" name="submit-user">Log out</button>
                         </form>
