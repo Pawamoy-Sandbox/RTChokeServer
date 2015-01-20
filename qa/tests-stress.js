@@ -29,7 +29,7 @@ suite('Stress tests', function(){
             done();
         });
     });
-    test('View stream handling 250 requests', function(done){
+    test('Stream handling 250 requests', function(done){
         var options = {
             url: 'http://localhost:3000/stream',
             concurrency: parallel,
@@ -41,7 +41,7 @@ suite('Stress tests', function(){
             done();
         });
     });
-    test('View stream handling 250 requests', function(done){
+    test('Map handling 250 requests', function(done){
         var options = {
             url: 'http://localhost:3000/map',
             concurrency: parallel,
