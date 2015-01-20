@@ -55,7 +55,10 @@
                 </ul>
                 {{#if user}}
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="#">{{user.displayName}}</a></li>
+                        <li><a href="/logout">{{user.email}}</a></li>
+                        <form class="navbar-form navbar-right" method='put' action='/logout'>
+                            <button type="submit" class="btn btn-info" name="submit-user">Log out</button>
+                        </form>
                     </ul>
                 {{else}}
                     <ul class="nav navbar-nav navbar-right">

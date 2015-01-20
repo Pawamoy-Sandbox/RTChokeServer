@@ -76,6 +76,11 @@ module.exports = function(app){
         failureRedirect : '/index', // redirect back to the signup page if there is an error
     }));
 
+    app.get('/logout', function(req, res){
+        req.logout();
+        res.render('index', {user: req.user});
+    });
+
     //----------------------------------------------------------------------------------
     // we redirect the HTTP requests
     //----------------------------------------------------------------------------------
