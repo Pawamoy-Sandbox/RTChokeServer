@@ -20,7 +20,7 @@ var streamSchema = mongoose.Schema({
             },
             text: Text,
             timestamp: Date
-        }],
+        }]
     },
     data: {
         url: String,
