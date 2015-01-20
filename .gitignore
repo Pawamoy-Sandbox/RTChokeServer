@@ -8,8 +8,7 @@
 
 # Files
 npm-debug.log
-
-credentials.js
+#credentials.js
 
 # DIRECTORIES ----------------------------------------------------------
 
