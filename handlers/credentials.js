@@ -24,8 +24,8 @@ module.exports = {
             clientSecret: 'Iy7lojeg1wTX9l9wseqHOtpGtnhaMKyfUX4jzmJbErWjpDAAR9',
             redirectURI: 'http://rtchoke-dev.u-strasbg.fr:3000/auth/twitter/callback',
         },
-
-
     },
+
+    sessionSecret: '<secret>'
 };
 

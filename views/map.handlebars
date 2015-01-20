@@ -39,7 +39,7 @@ var locationPoint=new ol.geom.Point([0,0]);
 geolocation.on('change', function(evt) {
     locationPoint.setCoordinates(geolocation.getPosition());
     positionFeature.setGeometry(locationPoint);
-    markers.push(geolocation.getPosition())
+    markers.push(geolocation.getPosition());
 
     //Center the map on the new position
     view.setCenter(geolocation.getPosition());

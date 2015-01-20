@@ -19,7 +19,7 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(cookieParser());
 
-app.use(session({secret: '<mysecret>',
+app.use(session({secret: credentials.sessionSecret,
                  saveUninitialized: true,
                  resave: true}));
 
