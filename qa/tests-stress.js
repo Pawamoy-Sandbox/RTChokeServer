@@ -2,7 +2,6 @@ var loadtest = require('loadtest');
 
 var expect = require('chai').expect;
 
-
 suite('Stress tests', function(){
     test('Homepage handling 250 requests', function(done){
         var options = {
