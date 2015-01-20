@@ -1,10 +1,10 @@
 module.exports = {
     mongo: {
         development: {
-            connectionString: 'mongodb://rtchokeuser:rtchokeuser@ds063909.mongolab.com:63909/rtchoke',
+            connectionString: 'mongodb://rtchokeuser:rtchokeuser@rtchoke-dev.u-strasbg.fr:27017/rtchoke',
         },
         production: {
-            connectionString: 'mongodb://rtchokeuser:rtchokeuser@ds063909.mongolab.com:63909/rtchoke',
+            connectionString: 'mongodb://rtchokeuser:rtchokeuser@rtchoke-dev.u-strasbg.fr:27017/rtchoke',
         },
     },
 
