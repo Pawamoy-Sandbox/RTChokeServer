@@ -28,6 +28,7 @@ module.exports = function(app, passport, User){
     app.get('/auth/google/callback',
             passport.authenticate('google', { failureRedirect: '/auth' }),
             function(req, res) {
+                req.session.user = req.user;
                 res.redirect('/index');
             });
 };

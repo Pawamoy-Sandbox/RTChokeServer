@@ -9,17 +9,19 @@ module.exports = function(app){
 
     require('./passport.js')(app);
 
+
     app.get('/', function(req, res){
-        res.render('index', {user: req.user});
+        res.render('index');
     });
 
     function ensureAuthenticated(req, res, next) {
-        if (req.isAuthenticated()) { return next(); }
+        if (req.isAuthenticated())
+        { return next(); }
         res.redirect('/auth');
     }
 
     app.get('/index', ensureAuthenticated, function(req, res){
-        res.render('index', {user: req.user});
+        res.render('index');
     });
 
     app.get('/viewstream/:streamid', function(req, res){
@@ -34,11 +36,11 @@ module.exports = function(app){
     });
 
     app.get('/viewstream', function(req, res){
-        res.render('viewstream', {user: req.user});
+        res.render('viewstream');
     });
 
     app.get('/stream', function(req, res){
-        res.render('stream', {user: req.user});
+        res.render('stream');
     });
 
     app.get('/signup', function(req, res){
@@ -46,7 +48,7 @@ module.exports = function(app){
     });
 
     app.get('/help', function(req, res){
-        res.render('help', {user: req.user});
+        res.render('help');
     });
 
     app.get('/profile', function(req, res){
@@ -54,15 +56,15 @@ module.exports = function(app){
     });
 
     app.get('/map', function(req, res){
-        res.render('map', {user: req.user});
+        res.render('map');
     });
 
     app.get('/track', function(req, res){
-        res.render('track.gpx', {user: req.user});
+        res.render('track.gpx');
     });
 
     app.get('/setting', function(req, res){
-        res.render('setting', {user: req.user});
+        res.render('setting');
     });
 
     app.get('/auth', function(req, res){
@@ -70,23 +72,32 @@ module.exports = function(app){
     });
 
     app.post('/process', passport.authenticate('local-signup', {
-        successRedirect : '/index', // redirect to the secure profile section
-        failureRedirect : '/signup', // redirect back to the signup page if there is an error
+        successRedirect : '/index',
+        failureRedirect : '/signup',
     }));
 
     app.post('/login', passport.authenticate('local-login', {
-        successRedirect : '/index', // redirect to the secure profile section
-        failureRedirect : '/index', // redirect back to the signup page if there is an error
+        successRedirect : '/index',
+        failureRedirect : '/index',
     }));
 
     app.get('/logout', ensureAuthenticated, function(req, res){
         req.logout();
-        res.render('index', {user: req.user});
+        req.session.user = undefined;
+        res.locals.user = undefined;
+        res.render('index');
     });
 
     app.get('/user/profile/:userId', function(req, res, done){
         var user = User.findById(req.params.userId, function(err, user) {
-            res.render('profile', {user: user});
+
+            if (err){
+                console.error(err);
+            }
+            else {
+                res.render('profile', {user: user});
+            }
+
         });
 
     });

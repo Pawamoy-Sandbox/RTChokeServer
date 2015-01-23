@@ -27,6 +27,7 @@ module.exports = function(app, passport, User){
     app.get('/auth/facebook/callback',
             passport.authenticate('facebook', { failureRedirect: '/auth' }),
             function(req, res) {
+                req.session.user = req.user;
                 res.redirect('/index');
             });
 };

@@ -58,6 +58,8 @@ module.exports = function(app, passport, User){
             if (!user.validPassword(password))
                 return done(null, false, console.log('loginMessage', 'Oops! Wrong password.'));
 
+            req.session.user = user;
+
             return done(null, user);
         });
 
