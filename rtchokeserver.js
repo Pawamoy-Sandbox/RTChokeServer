@@ -7,8 +7,11 @@ var cookieParser    = require('cookie-parser');
 var session         = require('express-session');
 var logger          = require('morgan');
 var credentials     = require('./handlers/credentials.js');
+var controllers     = require('express-controller')
 
 var app             = express();
+
+controllers.setDirectory(__dirname + '/controllers').bind(app);
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(__dirname + '/public/favicon.ico'));
