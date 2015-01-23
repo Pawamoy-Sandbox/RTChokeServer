@@ -7,7 +7,7 @@ var cookieParser    = require('cookie-parser');
 var session         = require('express-session');
 var logger          = require('morgan');
 var credentials     = require('./handlers/credentials.js');
-var controllers     = require('express-controller')
+var controllers     = require('express-controller');
 
 var app             = express();
 
