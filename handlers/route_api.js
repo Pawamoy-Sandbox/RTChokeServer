@@ -11,6 +11,7 @@ module.exports = function(app){
             // if a user is valid, he is now streaming
             if (user) {
                 user.isStreaming = true;
+                user.save();
                 return done(user);
             }
         });
