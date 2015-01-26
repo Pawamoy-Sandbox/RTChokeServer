@@ -67,3 +67,14 @@
     </div>
 </div>
 
+{{#section 'js'}}
+<script>
+    $("#call").click(function(event){
+        $.ajax({
+            url: "/api_launchStream/{{user._id}}",
+        }).done(function() {
+            $( this ).addClass( "done" );
+        });
+    });
+</script>
+{{/section}}

@@ -8,6 +8,7 @@ module.exports = function(app){
     app.disable('etag');
 
     require('./passport.js')(app);
+    require('./route_api.js')(app);
 
 
     app.get('/', function(req, res){
