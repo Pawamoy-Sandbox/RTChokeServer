@@ -43,8 +43,8 @@ require('./utils/helpers.js')(app);
 require('./handlers/mongoose.js')(app);
 require('./handlers/kurento.js')(app);
 require('./handlers/route.js')(app);
+require('./handlers/route_api.js')(app);
 require('./handlers/handlebars.js')(app);
-
 
 
 //----------------------------------------------------------------------------------

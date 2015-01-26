@@ -11,6 +11,7 @@ var userSchema = mongoose.Schema({
     description: String,
     gender: String,
     oauth2: Boolean,
+    isStreaming: Boolean,
     latestGpsPosition: Array,
 });
 
