@@ -71,6 +71,10 @@ module.exports = function(app){
         res.render('auth');
     });
 
+    app.post('/api_getusercoordinates/:userId/:coordinates', function (req, res){
+
+    });
+
     app.post('/process', passport.authenticate('local-signup', {
         successRedirect : '/index',
         failureRedirect : '/signup',
