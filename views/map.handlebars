@@ -35,11 +35,11 @@ var locationPoint=new ol.geom.Point([0,0]);
 
   var markers = [];
   
-  //Placeholder
-  markers.push(ol.proj.transform([34,18], 'EPSG:4326','EPSG:3857'));
-  markers.push(ol.proj.transform([12,17], 'EPSG:4326','EPSG:3857'));
-  markers.push(ol.proj.transform([56,21], 'EPSG:4326','EPSG:3857'));
-  markers.push(ol.proj.transform([21,65], 'EPSG:4326','EPSG:3857'));
+//  //Placeholder
+//  markers.push(ol.proj.transform([34,18], 'EPSG:4326','EPSG:3857'));
+//  markers.push(ol.proj.transform([12,17], 'EPSG:4326','EPSG:3857'));
+//  markers.push(ol.proj.transform([56,21], 'EPSG:4326','EPSG:3857'));
+//  markers.push(ol.proj.transform([21,65], 'EPSG:4326','EPSG:3857'));
 
 // listen to changes in position
 geolocation.on('change', function(evt) {
@@ -99,15 +99,6 @@ var vector = new ol.layer.Vector({
         })
     })
 });
-
-var draw; // global so we can remove it later
-function addInteraction() {
-    draw = new ol.interaction.Draw({
-        source: source,
-        type: "LineString"
-    });
-    map.addInteraction(draw);
-}
 
 
 </script>

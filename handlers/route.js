@@ -91,8 +91,10 @@ module.exports = function(app){
     app.get('/user/profile/:userId', function(req, res, done){
         var user = User.findById(req.params.userId, function(err, user) {
 
-            if (err){
+            if (err) {
                 console.error(err);
+                res.status(404);
+                res.render(404);
             }
             else {
                 res.render('profile', {user: user});
