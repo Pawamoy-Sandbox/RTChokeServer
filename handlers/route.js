@@ -35,7 +35,7 @@ module.exports = function(app){
         res.render('viewstream');
     });
 
-    app.get('/stream', function(req, res){
+    app.get('/stream', helpers.ensureAuthenticated, function(req, res){
         res.render('stream');
     });
 
@@ -45,10 +45,6 @@ module.exports = function(app){
 
     app.get('/help', function(req, res){
         res.render('help');
-    });
-
-    app.get('/profile', function(req, res){
-        res.render('profile');
     });
 
     app.get('/map', function(req, res){
