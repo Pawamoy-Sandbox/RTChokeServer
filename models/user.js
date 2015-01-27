@@ -12,6 +12,11 @@ var userSchema = mongoose.Schema({
     oauth2: Boolean,
     isStreaming: Boolean,
     latestGpsPosition: Array,
+    
+    currentStream: {
+                  type: mongoose.Schema.Types.ObjectId,
+                  ref: 'Stream'
+    },
 });
 
 // generating a hash

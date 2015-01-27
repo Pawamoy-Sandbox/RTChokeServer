@@ -8,6 +8,17 @@
 <div style="height:800px;width:80%;margin-left:auto;margin-right:auto;" id="map"></div>
 
 <script>
+
+function addPointToStream(Coordinate){
+  $.ajax({
+    type: "POST",
+    url: "/api_setUserCoordinate",
+    data: data,
+    success: success,
+    dataType: dataType
+  });
+}
+
 var view = new ol.View({
     center: [0, 0],
     zoom: 2
