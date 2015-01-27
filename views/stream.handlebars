@@ -69,12 +69,11 @@
 
 {{#section 'js'}}
 <script>
-    //noinspection JSUnusedLocalSymbols
     $("#call").click(function(event){
         $.ajax({
-            url: "/api_launchStream/{{user._id}}",
+            url: "/api_launchStream/",
         }).done(function() {
-            $( this ).addClass( "done" );
+            $( "#call" ).hide();
         });
     });
 </script>
