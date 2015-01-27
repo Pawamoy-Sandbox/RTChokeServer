@@ -10,7 +10,7 @@ var userSchema = mongoose.Schema({
     pictureUrl: String,
     description: String,
     gender: String,
-    oauth2: Boolean,
+    oauth2: Boolean
 });
 
 // generating a hash
