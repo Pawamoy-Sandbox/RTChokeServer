@@ -39,7 +39,7 @@ app.use(function(req,res,next){
     next();
 });
 
-require('./utils/helpers.js').putSessionIntoLocals(app);
+require('./lib/helpers.js').putSessionIntoLocals(app);
 require('./handlers/mongoose.js')(app);
 require('./handlers/kurento.js')(app);
 require('./handlers/route.js')(app);

@@ -9,7 +9,7 @@ module.exports = function(app){
 
     require('./passport.js')(app);
     require('./route_api.js')(app);
-    var helpers = require('../utils/helpers.js');
+    var helpers = require('../lib/helpers.js');
 
 
     app.get('/', function(req, res){
