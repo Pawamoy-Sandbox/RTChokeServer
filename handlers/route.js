@@ -73,6 +73,10 @@ module.exports = function(app){
         failureRedirect : '/index',
     }));
 
+    app.post('/edit', function (req, res){
+        //TODO: Edit of profile, updating values.
+    });
+
     app.get('/logout', helpers.ensureAuthenticated, function(req, res){
         req.logout();
         req.session.user = undefined;
