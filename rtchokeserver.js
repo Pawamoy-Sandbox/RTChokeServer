@@ -39,7 +39,7 @@ app.use(function(req,res,next){
     next();
 });
 
-require('./utils/helpers.js')(app);
+require('./lib/helpers.js').putSessionIntoLocals(app);
 require('./handlers/mongoose.js')(app);
 require('./handlers/kurento.js')(app);
 require('./handlers/route.js')(app);
@@ -56,6 +56,7 @@ app.listen(app.get('port'), function(){
 // development error handler
 // will print stacktrace
 if (app.get('env') === 'development') {
+    //noinspection JSUnusedLocalSymbols
     app.use(function(err, req, res, next) {
         res.status(err.status || 500);
         res.render('error', {
@@ -67,6 +68,7 @@ if (app.get('env') === 'development') {
 
 // production error handler
 // no stacktraces leaked to user
+//noinspection JSUnusedLocalSymbols
 app.use(function(err, req, res, next) {
     res.status(err.status || 500);
     res.render('error', {
