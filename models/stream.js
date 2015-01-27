@@ -18,7 +18,7 @@ var streamSchema = mongoose.Schema({
                 type: mongoose.Schema.Types.ObjectId,
                 ref: 'User'
             },
-            text: Text,
+            text: String,
             timestamp: Date
         }]
     },
