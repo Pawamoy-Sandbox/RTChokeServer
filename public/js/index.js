@@ -22,11 +22,11 @@ var webRtcPeer;
 window.onload = function() {
 	//console = new Console('console', console);
 	video = document.getElementById('video');
-}
+};
 
 window.onbeforeunload = function() {
 	ws.close();
-}
+};
 
 ws.onmessage = function(message) {
 	var parsedMessage = JSON.parse(message.data);
@@ -45,7 +45,7 @@ ws.onmessage = function(message) {
 	default:
 		//console.error('Unrecognized message', parsedMessage);
 	}
-}
+};
 
 function masterResponse(message) {
 	if (message.response != 'accepted') {
@@ -98,7 +98,7 @@ function viewer() {
 function stop() {
 	var message = {
 		id : 'stop'
-	}
+	};
 	sendMessage(message);
 	dispose();
 }

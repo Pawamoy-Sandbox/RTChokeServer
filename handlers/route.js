@@ -9,25 +9,20 @@ module.exports = function(app){
 
     require('./passport.js')(app);
     require('./route_api.js')(app);
+    var helpers = require('../utils/helpers.js');
 
 
     app.get('/', function(req, res){
         res.render('index');
     });
 
-    function ensureAuthenticated(req, res, next) {
-        if (req.isAuthenticated())
-        { return next(); }
-        res.redirect('/auth');
-    }
-
-    app.get('/index', ensureAuthenticated, function(req, res){
+    app.get('/index', helpers.ensureAuthenticated, function(req, res){
         res.render('index');
     });
 
-    app.get('/viewstream/:streamid', function(req, res){
+    app.get('/viewstream/:streamId', function(req, res){
         var Stream = require('../models/stream.js');
-        Stream.findById(req.param('streamid'), function(err, stream){
+        Stream.findById(req.params.streamId, function(err, stream){
             if (err) {
                 res.status(404);
                 res.render(404);
@@ -82,7 +77,7 @@ module.exports = function(app){
         failureRedirect : '/index',
     }));
 
-    app.get('/logout', ensureAuthenticated, function(req, res){
+    app.get('/logout', helpers.ensureAuthenticated, function(req, res){
         req.logout();
         req.session.user = undefined;
         res.locals.user = undefined;

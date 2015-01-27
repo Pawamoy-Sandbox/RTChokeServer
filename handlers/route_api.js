@@ -2,18 +2,9 @@ module.exports = function(app){
 
     var User = require('../models/user.js');
 
-    app.get('/api_launchStream/:userId', function(req, res) {
-        User.findOne({'_id': req.params.userId}, function (err, user) {
-            // if there are any errors, return the error
-            if (err)
-                return done(err);
+    var helpers = require('../utils/helpers.js');
 
-            // if a user is valid, he is now streaming
-            if (user) {
-                user.isStreaming = true;
-                user.save();
-                return done(user);
-            }
-        });
+    app.get('/api_launchStream', helpers.ensureAuthenticated, function(req, res) {
+        res.locals.user.isStreaming = true;
     });
 };

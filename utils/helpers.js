@@ -1,9 +1,14 @@
-module.exports = function(app){
+module.exports = {
+    ensureAuthenticated: function(req, res, next) {
+        if (req.isAuthenticated())
+        { return next(); }
+        res.redirect('/auth');
+    },
 
-
-    app.use(function(req, res, next){
-        res.locals.user = req.session.user;
-        next();
-    });
-
+    putSessionIntoLocals: function(app){
+        app.use(function(req, res, next){
+            res.locals.user = req.session.user;
+            next();
+        });
+    },
 };
