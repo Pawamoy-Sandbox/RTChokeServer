@@ -10,7 +10,7 @@ module.exports = function(app, passport, User){
     },
     function(accessToken, refreshToken, profile, done) {
         console.log('profilename:' + profile.displayName);
-        User.findOrCreate({ id: profile.id }, function (err, user){
+        User.findOrCreate({ email: profile.emails[0] }, function (err, user){
             user.displayName = profile.displayName;
             user.pictureUrl = profile.photos ? profile.photos[0].value : '/img/faces/unknown-user-pic.jpg';
             user.email = profile.emails[0];
