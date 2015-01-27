@@ -31,8 +31,6 @@ options = {
 app = module.exports = express();
 app.use(kraken(options));
 
-
-//------------------------------------------------------------------------------
 controllers.setDirectory(__dirname + '/controllers').bind(app);
 // uncomment after placing your favicon in /public
 //app.use(favicon(__dirname + '/public/favicon.ico'));
