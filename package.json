@@ -6,7 +6,7 @@
   "main": "index.js",
   "scripts": {
     "test": "grunt test",
-    "postinstall": "cd public && bower install"
+    //"postinstall": "cd public && bower install"
   },
   "repository": {
     "type": "git",
