@@ -11,9 +11,9 @@ module.exports = {
         res.send("More recent streams");
         console.log("hey");
     },
-    get_index : function(req, res, id) {
-        res.send("You are requesting the stream with id: " + id);
-    },
+    //get_index : function(req, res, id) {
+    //    res.send("You are requesting the stream with id: " + id);
+    //},
     get_id_chat : function(req, res, id) {
         res.send("You are requesting the chat of the stream with id: " + id);
     },
