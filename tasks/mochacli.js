@@ -11,7 +11,7 @@ module.exports = function mochacli(grunt) {
         options: {
             timeout: 6000,
             'check-leaks': true,
-            ui: 'bdd',
+            ui: 'tdd',
             reporter: 'spec'
         }
     };
