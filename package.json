@@ -5,7 +5,7 @@
   "author": "Madalina Preda, Joseph Pallamidessi, Thomas Ersfeld, Timothée Mazzucotelli",
   "main": "index.js",
   "scripts": {
-    "test": "grunt --verbose",
+    "test": "grunt test",
     "postinstall": "cd public && bower install"
   },
   "repository": {

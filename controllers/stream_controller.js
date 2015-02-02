@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = {
     get_index : function(req, res) {
         res.send("Hello visitor!");
@@ -18,4 +20,4 @@ module.exports = {
     get_userName_streams : function(req, res, userName) {
         res.send("You are requesting the streams of the person with user name: " + userName);
     }
-}
+};
