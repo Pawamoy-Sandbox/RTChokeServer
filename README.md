@@ -1,6 +1,8 @@
 RTChokeServer
 =============
 
+![Build passing?](https://travis-ci.org/ProjetPro/RTChokeServer.svg?branch=master)
+
 1. git clone
 2. npm install
 3. node rtchokeserver.js
