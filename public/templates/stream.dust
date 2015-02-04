@@ -13,6 +13,8 @@
     <script src="bower_components/kurento-utils/js/kurento-utils.js"></script>
     <script src="js/console.js"></script>
     <script src="js/index.js"></script>
+    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
 
 <div class="container theme-showcase" role="main">
     <div class="col-md-8">
@@ -59,9 +61,11 @@
         <h2>ChatRoom & Map</h2>
         <div class="well">
             <h4>Messages here</h4>
-            <textarea class="input-sm" id="messages"></textarea>
-            <textarea class="input-sm" id="chat"></textarea>
-            <img id="chat-map" src="images/test_map.png"/>
+  	    <textarea class="input-sm" id="messages"></textarea>      
+            <input type="text" name="message" id="message" placeholder="Your message..." size="25" autofocus />
+            <input type="submit" id="send_message" value="Send" />
+	   <img id="chat-map" src="images/test_map.png"/>           
+
         </div>
     </div>
 
@@ -83,4 +87,22 @@
         });
     });
 </script>
+
+<script>var socket = io.connect('http://localhost:3000');
+
+  $('#send_message').click(function () {
+               var message = $('#message').val();
+               socket.emit('message', message); 
+ 	       $('#messages').append(message + '\n');
+  	       $('#message').val('').focus(); 
+
+            });
+
+  socket.on('message', function(message) {                
+		   $('#messages').append(message + '\n');
+            });
+
+
+</script>
+ 
 {/js}
