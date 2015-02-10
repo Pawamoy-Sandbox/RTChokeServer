@@ -2,14 +2,15 @@ module.exports = function(app){
 
     var User = require('../models/user.js');
     var Stream = require('../models/stream.js');
+    var helpers = require('../lib/helpers.js');
 
-    app.get('/api_setUserCoordinate/', function(req, res) {
+    app.get('/api_setUserCoordinate/', helpers.ensureAuthenticated, function(req, res) {
       
         var lat = req.body.latitude;   
         var lon = req.body.longitude;
         var timestamp = new Date(value);
         
-        Stream.findOne({'_id_':req.params.userId}, function (err,user) {
+        User.findOne({'_id_':req.params.userId}, function (err,user) {
             // if there are any errors, return the error
             if (err){
                 console.log(" Error: User not find !")
@@ -36,7 +37,6 @@ module.exports = function(app){
     });
     
 
-    var helpers = require('../lib/helpers.js');
 
     app.get('/api_launchStream', helpers.ensureAuthenticated, function(req, res) {
         if (res.locals.user.isStreaming === false) {
@@ -53,7 +53,7 @@ module.exports = function(app){
 
                 var newUserStream = new Stream( { 'created' : new Date(value),
                                                   'user' : user,
-                                                  'is_public': false,
+                                                  'is_public': false
                                                 }
                 );
                 
@@ -62,6 +62,25 @@ module.exports = function(app){
                 user.currentStream = newUserStream;
                 return done(user);
             }
-        });
     });
+
+    app.get('/api_stopStream', helpers.ensureAuthenticated, function(req, res) {
+        if (res.locals.user.isStreaming === true) {
+            res.locals.user.isStreaming = false;
+            res.locals.user.currentStream.closed = new Date;
+        }
+    });
+
+    app.get('/api_activeUserCoordinate', helpers.ensureAuthenticated, function(req, res) {
+      User.find({}) 
+    });
+
+    app.get('/api_streamingUserCoordinate', helpers.ensureAuthenticated, function(req, res) {
+    
+    });
+
+    app.get('/api_usersCoordinate', helpers.ensureAuthenticated, function(req, res) {
+    
+    });
+
 };

@@ -5,6 +5,9 @@ var streamSchema = mongoose.Schema({
     name: String,
     description: String,
     created: Date,
+    closed: Date,
+    last_alive: Date,
+    video_filepath: String,
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'

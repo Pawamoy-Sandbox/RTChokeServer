@@ -11,6 +11,7 @@ var userSchema = mongoose.Schema({
     gender: String,
     oauth2: Boolean,
     isStreaming: Boolean,
+    isActive: Boolean, 
     latestGpsPosition: Array,
     
     currentStream: {
