@@ -7,13 +7,15 @@ var streamSchema = mongoose.Schema({
     name: String,
     description: String,
     created: Date,
-    thumbnail_url: String,
+    thumbnailUrl: String,
     views: Number,
+    numRatings: Number,
+    meanRatings: Number,
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     },
-    is_public: Boolean,
+    isPublic: Boolean,
     keywords: [String],
     chat: {
         open: Boolean,

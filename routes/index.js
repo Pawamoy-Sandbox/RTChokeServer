@@ -10,7 +10,6 @@ module.exports = function(app){
         var mostPopularStreams = Stream.find({}, {}, { sort: { 'views': -1} }, function(err, post){
             console.log(post);
         }).limit(4);
-
         //console.log(mostPopularStreams);
         res.render('index', {
             'mostPopular': mostPopularStreams
