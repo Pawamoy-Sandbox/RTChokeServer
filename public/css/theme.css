@@ -36,3 +36,8 @@
 .item embed {
     max-width: 220px;
 }
+
+.navbar-right {
+    position: relative;
+    right: 15px;
+}
