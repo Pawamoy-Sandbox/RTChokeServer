@@ -7,6 +7,8 @@ var streamSchema = mongoose.Schema({
     name: String,
     description: String,
     created: Date,
+    thumbnail_url: String,
+    views: Number,
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
