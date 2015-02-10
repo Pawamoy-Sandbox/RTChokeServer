@@ -19,6 +19,14 @@ var userSchema = mongoose.Schema({
                   type: mongoose.Schema.Types.ObjectId,
                   ref: 'Stream'
     },
+    favoriteStreams: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Stream'
+    }],
+    favoriteUsers: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    }]
 });
 
 // generating a hash
