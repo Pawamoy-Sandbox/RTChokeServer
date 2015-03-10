@@ -1,0 +1,181 @@
+{>"layouts/master" /}
+{<title}
+    RTChoke Map
+{/title}
+{<body}
+
+    <div class="container">
+
+        <div class="page-header">
+            <h2>Stream Map</h2>
+        </div>
+        
+        <button class="btn btn-info"> Get active users position</button>
+        <button class="btn btn-info"> Get latest position of everyone</button>
+        <button class="btn btn-info"> Get active users position</button>
+
+        <script src="http://openlayers.org/en/v3.0.0/build/ol.js" type="text/javascript"></script>
+        <div style="height:800px;width:80%;margin-left:auto;margin-right:auto;" id="map"></div>
+
+        <script>
+            
+           // var iconList = [];
+           // var vectorSource = new ol.source.Vector();
+
+           // var iconStyle = new ol.style.Style({
+           //   image: new ol.style.Icon(({
+           //     anchor: [0.5, 46],
+           //     anchorXUnits: 'fraction',
+           //     anchorYUnits: 'pixels',
+           //     opacity: 0.75,
+           //     src: 'http://ol3js.org/en/master/examples/data/icon.png'
+           //     //src: "{% static "img/csdc_marker.png" %}"
+           //   }))
+           // });
+           // 
+           // function addMarker(user){
+           //    
+           //   var point=new ol.Feature({
+           //     geometry: new ol.geom.Point(user,'XY'),
+           //   });
+
+           //   iconList.push(point);
+           //   point.setStyle(iconStyle);
+           //   vectorSource.addFeature(point);
+           // }
+
+           // function createMarker(listUsersCoord){
+           //   for(var i=0;i<list.length;i++){
+           //       addMarker(list[i]);
+           //   }
+           // }
+
+           // $.get(
+           //   '/api_usersCoordinate',
+           //   {},
+           //   function(data){
+           //     createMarker(data);
+           //   },
+           //   'json'
+           // );
+
+           // for(var i=0; i<iconList.length;i++){
+           //   iconList[i].setStyle(iconStyle);
+           // }
+
+
+                       
+            function addPointToStream( coordinate ){
+              $.ajax({
+                type: "POST",
+                url: "/api_setUserCoordinate",
+                data: { "latitude"  : coordinate[0],
+                        "longitude" : coordinate[1]
+                      },
+                success: function(){ console.log("Coordinates sent!")},
+                dataType: application/json
+              });
+            }
+
+            var view = new ol.View({
+                center: [0, 0],
+                zoom: 2
+            });
+
+            var map = new ol.Map({
+                target: 'map',
+                layers: [
+                    new ol.layer.Tile({
+                    source: new ol.source.OSM()
+                })
+                ],
+                view:view
+            });
+
+            var geolocation = new ol.Geolocation({
+                projection: view.getProjection()
+            });
+
+            geolocation.setTracking(true);
+
+
+            var positionFeature = new ol.Feature();
+            var locationPoint=new ol.geom.Point([0,0]);
+
+            var markers = [];
+            //  //Placeholder
+            //  markers.push(ol.proj.transform([34,18], 'EPSG:4326','EPSG:3857'));
+            //  markers.push(ol.proj.transform([12,17], 'EPSG:4326','EPSG:3857'));
+            //  markers.push(ol.proj.transform([56,21], 'EPSG:4326','EPSG:3857'));
+            //  markers.push(ol.proj.transform([21,65], 'EPSG:4326','EPSG:3857'));
+
+            // listen to changes in position
+            //noinspection JSUnusedLocalSymbols
+            geolocation.on('change', function(evt) {
+                locationPoint.setCoordinates(geolocation.getPosition());
+                positionFeature.setGeometry(locationPoint);
+                markers.push(geolocation.getPosition());
+
+                addPointToStream(geolocation.getPosition());
+
+                //Center the map on the new position
+                view.setCenter(geolocation.getPosition());
+
+                var layerLines = new ol.layer.Vector({
+                  source: new ol.source.Vector({
+                    features: [new ol.Feature({
+                      geometry: new ol.geom.LineString(markers, 'XY'),
+                      name: 'Line'
+                    })],
+                  }),
+                  style: new ol.style.Style({
+                    fill: new ol.style.Fill({
+                      color: 'rgba(255, 255, 255, 0.2)'
+                    }),
+                    stroke: new ol.style.Stroke({
+                      color: '#ffcc33',
+                      width: 4
+                    })
+                  })
+                });
+
+                map.addLayer(layerLines);
+
+                view.setZoom(12);
+            });
+
+            var featuresOverlay = new ol.FeatureOverlay({
+                map: map,
+                features: [positionFeature]
+            });
+
+
+            var source = new ol.source.Vector();
+
+            var vector = new ol.layer.Vector({
+                source: source,
+                style: new ol.style.Style({
+                    fill: new ol.style.Fill({
+                        color: 'rgba(255, 255, 255, 0.2)'
+                    }),
+                    stroke: new ol.style.Stroke({
+                        color: '#ffcc33',
+                        width: 2
+                    }),
+                    image: new ol.style.Circle({
+                        radius: 7,
+                        fill: new ol.style.Fill({
+                            color: '#ffcc33'
+                        })
+                    })
+                })
+            });
+           
+      
+
+        </script>
+
+    </div>
+
+
+{/body}
