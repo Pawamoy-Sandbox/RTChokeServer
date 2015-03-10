@@ -30,22 +30,14 @@
         <h1>Most popular</h1>
         <hr>
         <div class="container">
-            <div class="col-md-3"><div class="item">
-                <embed src="https://www.youtube.com/v/Tlrvif8nrck"></embed>
-                <div class="content"></div></div>
-            </div>
-            <div class="col-md-3"><div class="item">
-                <embed  src="https://www.youtube.com/v/Tlrvif8nrck"></embed>
-                <div class="content"></div></div>
-            </div>
-            <div class="col-md-3"><div class="item">
-                <embed  src="https://www.youtube.com/v/Tlrvif8nrck"></embed>
-                <div class="content"></div></div>
-            </div>
-            <div class="col-md-3"><div class="item">
-                <embed  src="https://www.youtube.com/v/Tlrvif8nrck"></embed>
-                <div class="content"></div></div>
-            </div>
+            {#mostPopular}
+                <div class="col-md-3">
+                    <div class="item">
+                        <a href="/viewstream/{id}"><img class="stream-thumb" alt="thumbnail" src="{thumbnailUrl}" /></a>
+                        <div class="content"></div>
+                    </div>
+                </div>{~n}
+            {/mostPopular}
             <button id="stream_now" onclick="location.href='/stream'" class="btn-lg btn-default">Stream now</button>
         </div>
     </div>

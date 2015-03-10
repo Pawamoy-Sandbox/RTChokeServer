@@ -33,6 +33,15 @@
     width: 50%;
 }
 
-.item embed {
+.stream-thumb {
     max-width: 220px;
+}
+
+.navbar-right {
+    position: relative;
+    right: 15px;
+}
+
+.form-group {
+    margin-right: 8px;
 }

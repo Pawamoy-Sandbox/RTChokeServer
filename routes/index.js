@@ -5,8 +5,15 @@ module.exports = function(app){
         res.render('index');
     });
 
-    app.get('/index', helpers.ensureAuthenticated, function(req, res){
-        res.render('index');
+    app.get('/index', function(req, res){
+        var Stream = require('../models/stream.js');
+        var mostPopularStreams = Stream.find({}, {}, { sort: { 'views': -1} }, function(err, post){
+            console.log(post);
+        }).limit(4);
+        //console.log(mostPopularStreams);
+        res.render('index', {
+            'mostPopular': mostPopularStreams
+        });
     });
 
     app.get('/help', function(req, res){

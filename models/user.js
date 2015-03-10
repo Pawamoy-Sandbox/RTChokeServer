@@ -13,7 +13,20 @@ var userSchema = mongoose.Schema({
     gender: String,
     oauth2: Boolean,
     isStreaming: Boolean,
-    latestGpsPosition: Array
+    latestGpsPosition: Array,
+    isActive: Boolean, 
+    currentStream: {
+                  type: mongoose.Schema.Types.ObjectId,
+                  ref: 'Stream'
+    },
+    favoriteStreams: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Stream'
+    }],
+    favoriteUsers: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    }]
 });
 
 // generating a hash
