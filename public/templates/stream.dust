@@ -60,10 +60,12 @@
     <div class="col-md-4">
         <h2>ChatRoom & Map</h2>
         <div class="well">
-            <h4>Messages here</h4>
-  	    <textarea class="input-sm" id="messages"></textarea>      
+  	<h4>Messages here</h4>
+  	<textarea class="input-sm" id="messages"></textarea> 
+          
             <input type="text" name="message" id="message" placeholder="Your message..." size="25" autofocus />
             <input type="submit" id="send_message" value="Send" />
+		
 	   <img id="chat-map" src="images/test_map.png"/>           
 
         </div>
@@ -90,19 +92,37 @@
 
 <script>var socket = io.connect('http://localhost:3000');
 
-  $('#send_message').click(function () {
+var username = prompt('What\'s your username?');
+socket.emit('new_client',username);  
+              $('#send_message').click(function () {
                var message = $('#message').val();
                socket.emit('message', message); 
- 	       $('#messages').append(message + '\n');
+ 	       $('#messages').append(username + ': '+message + '\n');
   	       $('#message').val('').focus(); 
 
             });
 
-  socket.on('message', function(message) {                
-		   $('#messages').append(message + '\n');
+socket.on('connected', function(message) {
+
+
+  $('#messages').append(message + '\n');
+           
             });
 
 
+socket.on('new_client', function(username) {
+
+
+  $('#messages').append(username + ' has just connected!\n');
+           
+            });
+
+socket.on('message', function(data) {                
+		   $('#messages').append(data.username + ': '+data.message + '\n');
+            });
+   
+
+ 
 </script>
  
 {/js}
