@@ -1,20 +1,13 @@
 'use strict';
 
-
-var IndexModel = require('../models/index');
-
+var streamModel = require('../models/stream');
 
 module.exports = function (router) {
 
-    var model = new IndexModel();
-
+    var model = new streamModel();
 
     router.get('/', function (req, res) {
-        
-        
         res.render('index', model);
-        
-        
     });
 
 };

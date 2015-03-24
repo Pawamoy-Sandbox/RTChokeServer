@@ -1,7 +1,5 @@
 'use strict';
 
-var ent = require('ent');
-var fs = require('fs');
 var app = require('./index');
 
 
@@ -29,7 +27,7 @@ io.sockets.on('connection', function (socket, username) {
 
     socket.on('message', function (message) {
 		socket.broadcast.emit('message', {username: socket.username, message: message});
-    }); 
+    });
 });
 server.listen(process.env.PORT || 3000);
 
