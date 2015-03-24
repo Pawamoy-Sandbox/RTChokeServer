@@ -7,7 +7,7 @@ module.exports = function (server) {
     var model = new streamModel();
 
     server.get('/', function (req, res) {
-        res.render('index', model);
+        res.redirect('index');
     });
 
     server.get('/index', function (req, res) {
