@@ -11,6 +11,9 @@ module.exports = function (server) {
     });
 
     server.get('/index', function (req, res) {
+
+        //TODO: get latest stream
+
         res.render('index', model);
     });
 };
