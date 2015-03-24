@@ -10,4 +10,7 @@ module.exports = function (server) {
         res.render('index', model);
     });
 
+    server.get('/index', function (req, res) {
+        res.render('index', model);
+    });
 };
