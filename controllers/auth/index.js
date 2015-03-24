@@ -2,15 +2,15 @@
 
 module.exports = function (server) {
     var passport = require('passport');
-    var helpers = require('../lib/helpers.js');
+    var helpers = require('../../lib/helpers.js');
 
-    server.get('/auth', function (req, res) {
+    server.get('/', function (req, res) {
         res.render('auth');
     });
 
     server.post('/process', passport.authenticate('local-signup', {
         successRedirect: '/index',
-        failureRedirect: '/signup'
+        failureRedirect: '/auth/signup'
     }));
 
     server.post('/login', passport.authenticate('local-login', {

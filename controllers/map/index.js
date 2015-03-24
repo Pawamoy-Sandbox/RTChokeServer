@@ -2,7 +2,7 @@
 
 module.exports = function(server){
 
-    server.get('/map', function(req, res){
+    server.get('/', function(req, res){
         res.render('map');
     });
 };

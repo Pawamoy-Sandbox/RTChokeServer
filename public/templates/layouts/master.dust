@@ -46,9 +46,9 @@
                                 <li><a tabindex="-1" href="/profile">Your profile</a></li>
                                 <li><a tabindex="-1" href="/edit">Edit settings</a></li>
                                 <li class="divider"></li>
-                                <li><a tabindex="-1" href="/logout">Logout</a></li>
+                                <li><a tabindex="-1" href="/auth/logout">Logout</a></li>
                             {/user}
-                            <li><a tabindex="-1" href="/signup">Signup</a></li>
+                            <li><a tabindex="-1" href="/auth/signup">Signup</a></li>
 
                         </ul>
                     </li>
@@ -60,13 +60,13 @@
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="/user/profile/{user._id}">{user.email}</a></li>
                             <li class="divider"></li>
-                        <form class="navbar-form navbar-right" method='put' action='/logout'>
+                        <form class="navbar-form navbar-right" method='put' action='/auth/logout'>
                             <button type="submit" class="btn btn-info" name="submit-user">Log out</button>
                         </form>
                     </ul>
                 {:else}
                     <ul class="nav navbar-nav navbar-right">
-                        <form class="navbar-form navbar-right" method='post' action='/login'>
+                        <form class="navbar-form navbar-right" method='post' action='/auth/login'>
                             <div class="form-group">
                                 <input type="text" placeholder="Email address" class="form-control" name='email'>
                             </div>
