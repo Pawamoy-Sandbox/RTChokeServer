@@ -13,7 +13,12 @@ module.exports = function (server) {
     server.get('/index', function (req, res) {
 
         //TODO: get latest stream
-
-        res.render('index', model);
+        var mostPopularStreams = streamModel.find({}, {}, { sort: { 'views': -1} }, function(err, post){
+            console.log(post);
+        }).limit(4);
+        //console.log(mostPopularStreams);
+        res.render('index', {
+            'mostPopular': mostPopularStreams
+        });
     });
 };
