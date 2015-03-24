@@ -21,4 +21,8 @@ module.exports = function (server) {
             'mostPopular': mostPopularStreams
         });
     });
+
+    server.get('/help', function(req, res) {
+        res.render('help');
+    });
 };
