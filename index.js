@@ -64,7 +64,7 @@ app.use(function(req,res,next){
 require('./lib/helpers.js').putSessionIntoLocals(app);
 require('./lib/mongoose.js')(app);
 require('./lib/kurento.js')(app);
-require('./lib/route.js')(app);
+//require('./lib/route.js')(app);
 //require('./lib/handlebars.js')(app);
 
 
