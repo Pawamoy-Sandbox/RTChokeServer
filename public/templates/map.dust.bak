@@ -10,16 +10,99 @@
             <h2>Stream Map</h2>
         </div>
         
-        <button class="btn btn-info"> Get active users position</button>
-        <button class="btn btn-info"> Get latest position of everyone</button>
-        <button class="btn btn-info"> Get active users position</button>
+        <button id="btn-active" class="btn btn-info"> Get active users position       </button>
+        <button id="btn-latest" class="btn btn-info"> Get latest position of everyone </button>
+        <button id="btn-stream" class="btn btn-info"> Get streaming users position       </button>
 
         <script src="http://openlayers.org/en/v3.0.0/build/ol.js" type="text/javascript"></script>
         <div style="height:800px;width:80%;margin-left:auto;margin-right:auto;" id="map"></div>
 
         <script>
+            /* Variable declaration */
+            var iconList = [];
+            var vectorSource = new ol.source.Vector();
+            var markers = [];
             
-            /* Send a position server-side */ 
+            /* Event handler the "active user position" button */
+            $( "#btn-active").on( "click", function() {
+              $.get(
+                '/api_activeUserCoordinate',
+                {},
+                function(data){
+                  createMarker(data);
+                },
+                'json'
+              );
+            });
+            
+            /* Event handler the "all latest user position" button */
+            $( "#btn-latest").on( "click", function() {
+              $.get(
+                '/api_usersCoordinate',
+                {},
+                function(data){
+                  createMarker(data);
+                },
+                'json'
+              );
+            });
+            
+            /* Event handler the "streaming user" button */
+            $( "#btn-stream").on( "click", function() {
+              $.get(
+                '/api_streamingUserCoordinate',
+                {},
+                function(data){
+                  createMarker(data);
+                },
+                'json'
+              );
+            });
+
+
+            var iconStyle = new ol.style.Style({
+              image: new ol.style.Icon(({
+                anchor: [0.5, 46],
+                anchorXUnits: 'fraction',
+                anchorYUnits: 'pixels',
+                opacity: 0.75,
+                src: 'http://ol3js.org/en/master/examples/data/icon.png'
+                //src: "{% static "img/csdc_marker.png" %}"
+              }))
+            });
+            
+            function addMarker(user){
+               
+              var point=new ol.Feature({
+                geometry: new ol.geom.Point(user,'XY'),
+              });
+
+              iconList.push(point);
+              point.setStyle(iconStyle);
+              vectorSource.addFeature(point);
+            }
+
+            function createMarker(listUsersCoord){
+              for(var i=0;i<list.length;i++){
+                  addMarker(list[i]);
+              }
+            }
+
+            $.get(
+              '/api_usersCoordinate',
+              {},
+              function(data){
+                createMarker(data);
+              },
+              'json'
+            );
+
+            for(var i=0; i<iconList.length;i++){
+              iconList[i].setStyle(iconStyle);
+            }
+
+
+                       
             function addPointToStream( coordinate ){
               $.ajax({
                 type: "POST",
@@ -56,8 +139,6 @@
 
             var positionFeature = new ol.Feature();
             var locationPoint=new ol.geom.Point([0,0]);
-
-            var markers = [];
 
             // listen to changes in position
             //noinspection JSUnusedLocalSymbols
@@ -121,8 +202,11 @@
                 })
             });
            
+      
+
         </script>
 
     </div>
+
 
 {/body}
