@@ -1,7 +1,6 @@
 'use strict';
 
 var ent = require('ent');
-var fs = require('fs');
 var app = require('./index');
 
 
@@ -12,7 +11,6 @@ var app = require('./index');
  */
 
 var http = require('http');
-var fs = require('fs');
 // Loading the index file . html displayed to the client
 var server = http.createServer(app);
 // Loading socket.io
