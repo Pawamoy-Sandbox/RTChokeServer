@@ -1,7 +1,9 @@
-module.exports = function(app){
+'use strict';
+
+module.exports = function (server) {
     var Stream = require('../models/stream.js');
 
-    app.get('/viewstream/:streamId', function(req, res){
+    server.get('/viewstream/:streamId', function(req, res){
         Stream.findById(req.params.streamId, function(err, stream){
             if (err) {
                 res.status(404);
@@ -11,11 +13,11 @@ module.exports = function(app){
         });
     });
 
-    app.get('/viewstream', function(req, res){
+    server.get('/viewstream', function(req, res){
         res.render('viewstream');
     });
 
-    app.get('/stream', function(req, res){
+    server.get('/stream', function(req, res){
         res.render('stream');
     });
 };
