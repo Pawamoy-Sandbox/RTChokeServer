@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = function (server) {
     var User = require('../models/user.js');
 
