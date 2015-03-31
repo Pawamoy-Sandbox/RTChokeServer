@@ -2,6 +2,9 @@
 
 module.exports = function (server) {
     var passport = require('passport');
+
+    require('../../lib/passport.js')(server);
+
     var helpers = require('../../lib/helpers.js');
 
     server.get('/', function (req, res) {
