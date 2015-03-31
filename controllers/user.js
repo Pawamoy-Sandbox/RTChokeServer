@@ -7,8 +7,8 @@ module.exports = function (server) {
         res.render('profile');
     });
 
-    server.get('/setting', function (req, res) {
-        res.render('setting');
+    server.get('/settings', function (req, res) {
+        res.render('settings');
     });
 
     server.get('/profile/:userId', function (req, res, done) {
