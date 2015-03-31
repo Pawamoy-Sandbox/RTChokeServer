@@ -17,6 +17,7 @@
 #cam-button {
     position: absolute;
     top: 91px;
+	padding-left: 4px;
 }
 
 video {

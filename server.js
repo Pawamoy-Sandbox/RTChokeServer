@@ -1,5 +1,6 @@
 'use strict';
 
+var ent = require('ent');
 var app = require('./index');
 
 
@@ -10,7 +11,6 @@ var app = require('./index');
  */
 
 var http = require('http');
-var fs = require('fs');
 // Loading the index file . html displayed to the client
 var server = http.createServer(app);
 // Loading socket.io
@@ -27,7 +27,7 @@ io.sockets.on('connection', function (socket, username) {
 
     socket.on('message', function (message) {
 		socket.broadcast.emit('message', {username: socket.username, message: message});
-    });
+    }); 
 });
 server.listen(process.env.PORT || 3000);
 
