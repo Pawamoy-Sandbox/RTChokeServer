@@ -33,7 +33,7 @@
             {#mostPopular}
                 <div class="col-md-3">
                     <div class="item">
-                        <a href="/viewstream/{id}"><img class="stream-thumb" alt="thumbnail" src="{thumbnailUrl}" /></a>
+                        <a href="/stream/view/{id}"><img class="stream-thumb" alt="thumbnail" src="{thumbnailUrl}" /></a>
                         <div class="content"></div>
                     </div>
                 </div>{~n}
