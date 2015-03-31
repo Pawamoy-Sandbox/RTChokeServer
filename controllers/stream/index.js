@@ -2,7 +2,9 @@
 
 module.exports = function (server) {
 
-    server.get('/', function(req, res){
+    var helpers = require('../../lib/helpers.js');
+
+    server.get('/', helpers.ensureAuthenticated, function (req, res) {
         res.render('stream');
     });
 };

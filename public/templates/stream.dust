@@ -26,7 +26,7 @@
                   class="glyphicon glyphicon-play"></span> Start</a> <a id="terminate"
                   href="#" class="btn btn-danger" onclick="stop(); return false;"><span
                   class="glyphicon glyphicon-stop"></span> Stop</a>
-				  
+
             <div id="cam-button" class="btn-group">
                 <a href="#" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
                     Camera resolution <span class="caret"></span>
@@ -55,19 +55,19 @@
         <h2>ChatRoom & Map</h2>
         <div class="well">
   	<h4>Messages here</h4>
-  	<textarea class="input-sm" id="messages"></textarea> 
-          
+            <textarea class="input-sm" id="messages"></textarea>
+
             <input type="text" name="message" id="message" placeholder="Your message..." size="25" autofocus />
             <input type="submit" id="send_message" value="Send" />
-		
-	   <img id="chat-map" src="images/test_map.png"/>           
+
+            <img id="chat-map" src="images/test_map.png"/>
 
         </div>
     </div>
 
     <div class="col-md-12">
         <div class="well well-lg">
-            <h2><a href="/user/profile/{{user._id}}">Profile of {{user.email}}</a></h2>
+            <h2><a href="/user/profile/{user._id}">Profile of {user.email}</a></h2>
         </div>
     </div>
 </div>
@@ -77,7 +77,7 @@
 <script>
     $("#call").click(function(event){
         $.ajax({
-            url: "/api_launchStream/",
+            url: "/api_launchStream/"
         }).done(function() {
             $( "#call" ).hide();
         });
@@ -86,13 +86,13 @@
 
 <script>var socket = io.connect();
 
-var username = prompt('What\'s your username?');
-socket.emit('new_client',username);  
+var username = '{user.email}';
+socket.emit('new_client', username);
               $('#send_message').click(function () {
                var message = $('#message').val();
-               socket.emit('message', message); 
+                  socket.emit('message', message);
  	       $('#messages').append(username + ': '+message + '\n');
-  	       $('#message').val('').focus(); 
+                  $('#message').val('').focus();
 
             });
 
@@ -100,7 +100,7 @@ socket.on('connected', function(message) {
 
 
   $('#messages').append(message + '\n');
-           
+
             });
 
 
@@ -108,15 +108,14 @@ socket.on('new_client', function(username) {
 
 
   $('#messages').append(username + ' has just connected!\n');
-           
-            });
 
-socket.on('message', function(data) {                
+});
+
+socket.on('message', function (data) {
 		   $('#messages').append(data.username + ': '+data.message + '\n');
             });
-   
 
- 
+
 </script>
- 
+
 {/js}
