@@ -15,6 +15,7 @@ npm-debug.log
 # Patterns
 
 # Directories
+.build/
 .idea/
 node_modules/
 bin/

@@ -1,7 +1,7 @@
 {
 
     "express": {
-        "view cache": false,
+        "view cache": true,
         "view engine": "dust",
         "views": "path:./public/templates"
     },
@@ -12,7 +12,7 @@
             "renderer": {
                 "method": "dust",
                 "arguments": [
-                    { "cache": false },
+                    { "cache": true },
                     {
                         "views": "config:express.views",
                         "view engine": "config:express.view engine",
@@ -27,7 +27,7 @@
     "middleware": {
 
         "devtools": {
-            "enabled": false,
+            "enabled": true,
             "priority": 35,
             "module": {
                 "name": "kraken-devtools",
