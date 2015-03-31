@@ -11,7 +11,7 @@ module.exports = function (server) {
         res.render('setting');
     });
 
-    server.get('/user/profile/:userId', function (req, res, done) {
+    server.get('/profile/:userId', function (req, res, done) {
         var user = User.findById(req.params.userId, function(err, user) {
 
             if (err) {

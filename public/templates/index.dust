@@ -16,9 +16,9 @@
                  !
             </p>
             <div class="list-group">
-                <a href="/viewstream" class="list-group-item">View stream</a>
+                <a href="/stream/view" class="list-group-item">View stream</a>
                 <a href="/stream" class="list-group-item">My stream </a>
-                <a href="/signup" class="list-group-item">Sign up</a>
+                <a href="/auth/signup" class="list-group-item">Sign up</a>
                 <a href="/auth" class="list-group-item">Sign in with passport.js</a>
                 <a href="/map" class="list-group-item">Openstreetmap + openLayer with
                     geolocation</a>

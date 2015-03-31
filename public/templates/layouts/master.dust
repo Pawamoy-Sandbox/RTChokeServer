@@ -43,7 +43,7 @@
                             <span class="caret"></span></a>
                         <ul class="dropdown-menu" aria-labelledby="download">
                             {?user}
-                                <li><a tabindex="-1" href="/profile">Your profile</a></li>
+                                <li><a tabindex="-1" href="user/profile/{user._id}">Your profile</a></li>
                                 <li><a tabindex="-1" href="/edit">Edit settings</a></li>
                                 <li class="divider"></li>
                                 <li><a tabindex="-1" href="/auth/logout">Logout</a></li>

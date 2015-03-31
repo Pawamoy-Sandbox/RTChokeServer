@@ -28,6 +28,7 @@ module.exports = function (server) {
         res.render('index');
     });
 
+    //local signup
     server.get('/signup', function (req, res) {
         res.render('signup');
     });
