@@ -12,14 +12,14 @@
     });
 
     function addMarker(inst){
-       
+
        if(inst.lat == null || inst.lon == null)
          return;
 
        var correctCoord = ol.proj.transform([inst.lon,inst.lat], 'EPSG:4326','EPSG:3857');
        var point=new ol.Feature({
         geometry: new ol.geom.Point(correctCoord,'XY'),
-        name: inst.name,
+           name: inst.name
       });
        //finalPoint = ol.proj.transform(coord, 'EPSG:4326','EPSG:3857'));
        iconList.push(point);
@@ -32,7 +32,7 @@
           addMarker(list[i]);
       }
     }
-    
+
     $.get(
       '/api_activeUserCoordinate',
       {},
@@ -42,7 +42,7 @@
       },
       'json'
     );
-    
+
     $.get(
       '/api_streamingUserCoordinate',
       {},
@@ -52,7 +52,7 @@
       },
       'json'
     );
-    
+
     $.get(
       '/api_usersCoordinate',
       {},
@@ -62,8 +62,7 @@
       },
       'json'
     );
-    
-    
+
 
     for(var i=0; i<iconList.length;i++){
       iconList[i].setStyle(iconStyle);
@@ -98,7 +97,7 @@
     map.addOverlay(popup);
 
     // display popup on click
-    
+
     map.on('click', function(evt) {
       var feature = map.forEachFeatureAtPixel(evt.pixel,
           function(feature, layer) {

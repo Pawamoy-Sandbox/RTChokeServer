@@ -47,7 +47,7 @@ var positionFeature = new ol.Feature();
 var locationPoint=new ol.geom.Point([0,0]);
 
   var markers = [];
-  
+
 //  //Placeholder
 //  markers.push(ol.proj.transform([34,18], 'EPSG:4326','EPSG:3857'));
 //  markers.push(ol.proj.transform([12,17], 'EPSG:4326','EPSG:3857'));
@@ -60,7 +60,7 @@ geolocation.on('change', function(evt) {
     locationPoint.setCoordinates(geolocation.getPosition());
     positionFeature.setGeometry(locationPoint);
     markers.push(geolocation.getPosition());
-    
+
     addPointToStream(geolocation.getPosition());
 
     //Center the map on the new position
@@ -71,7 +71,7 @@ geolocation.on('change', function(evt) {
         features: [new ol.Feature({
           geometry: new ol.geom.LineString(markers, 'XY'),
           name: 'Line'
-        })],
+        })]
       }),
       style: new ol.style.Style({
         fill: new ol.style.Fill({
